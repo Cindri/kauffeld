@@ -6,7 +6,15 @@
  * Date: 01.08.2016
  * Time: 11:47
  */
-class Mittagstisch
+class Mittagstisch extends Model
 {
+    private $geschaeft;
+    private $kalenderwoche;
+    private $entries;
 
+    public function __construct($geschaeft)
+    {
+        parent::__construct();
+        $this->geschaeft = $geschaeft;
+    }
 }
