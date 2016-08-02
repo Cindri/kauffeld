@@ -16,7 +16,7 @@ class Model
 
     public function __construct()
     {
-        $this->dbConn = new mysqli("localhost", "root", "", "kauffeld");
+        $this->dbConn = new mysqli(SQL_HOST, SQL_USER, SQL_PASS, SQL_DB);
         $this->locale = "de_DE";
         $this->creationDate = new DateTime();
         $this->valid = new DateTime();

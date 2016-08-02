@@ -9,7 +9,7 @@
 class View
 {
     private $tmplPath = "templates/";
-    private $template = "default";
+    private $template = "";
     private $fileExt = ".phtml";
     private $_ = array();
 
@@ -35,7 +35,7 @@ class View
 
     public function loadTemplate(){
         $tpl = $this->template;
-        $file = $this->tmplPath . "/" . $tpl . $this->fileExt;
+        $file = $this->tmplPath . $tpl . $this->fileExt;
         $exists = file_exists($file);
 
         if ($exists){
@@ -54,7 +54,7 @@ class View
             return $output;
         }
         else {
-            return 'could not find template';
+            return 'could not find template:  '.$file;
         }
     }
 

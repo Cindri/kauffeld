@@ -17,4 +17,12 @@ class Mittagstisch extends Model
         parent::__construct();
         $this->geschaeft = $geschaeft;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getGeschaeft()
+    {
+        return $this->geschaeft;
+    }
 }

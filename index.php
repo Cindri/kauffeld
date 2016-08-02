@@ -6,8 +6,13 @@
  * Time: 13:16
  */
 
+require_once "config.php";
+
 require_once('classes/controller.php');
 require_once('classes/model.php');
+    require_once ('classes/models/Mittagstisch.php');
+    require_once ('classes/models/Catering.php');
+    require_once ('classes/models/Wochenkarte.php');
 require_once('classes/view.php');
 
 // $_GET und $_POST zusammenfasen

@@ -11,79 +11,106 @@ class Controller
     private $request = null;
     private $template = '';
     private $view = null;
+    private $pageData = null;
 
-    private static $pages = array(
-        "dynamic" => array(
-            "mittagstisch",
-            "wochenangebot",
-            "catering"
-        ),
-        "static" => array(
-            "home"
-        ),
-        "admin" => array(
 
-        ),
-        "post" => array()
-    );
+    // ------ VERY IMPORTANT: ALL ALLOWED PATHS ARE SAVED HERE
 
     public function __construct($request){
         $this->request = $request;
-        $this->template = !empty($request['view']) ? $request['view'] : 'default';
+        $this->template = strtolower(!empty($request['view']) ? $request['view'] : 'home');
         $this->view = new View();
     }
 
     public function display() {
-        $contentView = new View();
-        if (in_array($this->template, Controller::$pages["dynamic"])) {
-            return self::displayDynamic($this->template);
+        if (in_array($this->template, $GLOBALS['pages']['dynamic'])) {
+            return self::displayDynamic();
         }
-        else if (in_array($this->template, Controller::$pages['static'])) {
-            return self::displayStatic($this->template);
+        else if (in_array($this->template, $GLOBALS['pages']['static'])) {
+            return self::displayStatic();
         }
-        else if (in_array($this->template, Controller::$pages['admin'])) {
+        else if (in_array($this->template, $GLOBALS['pages']['admin'])) {
 
         }
-        else if (in_array($this->template, Controller::$pages['post'])) {
+        else if (in_array($this->template, $GLOBALS['pages']['post'])) {
 
         }
         else {
-            return self::displayStatic("error404");
+            $this->view->setTemplate("error404");
+            $this->view->setFileExt(".html");
+            return $this->view->loadTemplate();
         }
     }
 
-    private function displayStatic($template) {
-        $this->template = $template;
-        switch ($template) {
-
+    private function displayStatic() {
+        $this->view->setTemplate("layout");
+        $this->view->assign("activeLink", $this->template);
+        switch ($this->template) {
             case "home":
-                $this->view->setTemplate("layout.phtml");
-
                 // View für Unterseite generieren
                 $contentView = new View();
 
                 // Allgemeine Seitenangaben
                 $this->view->assign("title", "Metzgerei Kauffeld - Herzlich Willkommen!");
                 $this->view->assign("message", "Alles in Ordnung. Dies repräsentiert zugewiesene Daten für die Startseite.");
-                $this->view->assign("testData", Model::getLocale());
+                $this->view->assign("testData", "Blabla Testdata");
 
                 // Seitenspezifische Daten
-                $contentView->setTemplate("home.phtml");
-                $contentView->assign("adText", Model::getAdText());
+                $contentView->setTemplate("home");
+                $contentView->assign("adText", "blabla Ad-Text");
 
                 // Content in eine Variable laden
                 $this->view->assign("pageContent", $contentView->loadTemplate());
-
-                return $this->view->loadTemplate();
                 break;
-            default:
-                $this->view->setTemplate($template);
-                $this->view->setFileExt(".html");
-                return $this->view->loadTemplate();
+            case "impressum":
+                $contentView = new View();
+                $contentView->setTemplate("impressum");
+                $contentView->setFileExt(".html");
+                $this->view->assign("pageContent", $contentView->loadTemplate());
+                break;
         }
+        return $this->view->loadTemplate();
     }
 
-    private function displayDynamic($template) {
+    private function displayDynamic() {
+        $this->view->assign("activeLink", $this->template);
+        $this->view->setTemplate("layout");
+        switch ($this->template) {
+            case "mittagstisch":
+                if (!empty($this->request['subpage']) && trim($this->request['subpage']) == "rheinstrasse") {
+                    $this->pageData = new Mittagstisch("Rheinstrasse");
+                }
+                else {
+                    $this->pageData = new Mittagstisch("Hauptgeschäft");
+                }
+                // View für Unterseite generieren
+                $contentView = new View();
 
+                // Allgemeine Seitenangaben
+                $this->view->assign("title", "Metzgerei Kauffeld - Herzlich Willkommen!");
+                $this->view->assign("message", "Alles in Ordnung. Dies repräsentiert zugewiesene Daten für die Startseite.");
+                $this->view->assign("testData", "Blabla Testdata");
+
+                // Seitenspezifische Daten
+
+                $contentView->setTemplate("mittagstisch");
+                $contentView->assign("adText", $this->pageData->getGeschaeft());
+                $contentView->assign("dbInfo", $this->pageData->getDbConn()->client_info);
+
+                // Content in eine Variable laden
+                $this->view->assign("pageContent", $contentView->loadTemplate());
+                break;
+
+            case "wochenangebot":
+                $contentView = new View();
+                $contentView->setTemplate("impressum");
+                $contentView->setFileExt(".html");
+                $this->view->assign("pageContent", $contentView->loadTemplate());
+                break;
+
+            case "catering":
+                break;
+        }
+        return $this->view->loadTemplate();
     }
 }
