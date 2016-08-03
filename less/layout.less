@@ -1,0 +1,94 @@
+#k_navigation {
+  .row {
+    div {
+      a {
+        background-color: @primary-bgColor !important;
+        color: @secondary-color;
+        width: 100%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        min-height:3em;
+        margin-bottom:20px;
+        font-size:@font-size-nav;
+        &:hover {
+          background-color:@secondary-bgColor !important;
+          color:@secondary-color !important;
+          text-decoration:none;
+        }
+      }
+      .active {
+        background-color:@secondary-bgColor !important;
+        color:@secondary-color !important;
+        text-decoration:none;
+      }
+    }
+  }
+}
+
+.k_header {
+  background-color:@primary-bgColor;
+  margin-bottom:10px;
+  padding-left:15px;
+  padding-right:15px;
+  .k_logo {
+    background-color:white;
+    padding-left:5px;
+    padding-right:5px;
+    @media(min-width: 768px) {
+      background-color:@primary-bgColor;
+    }
+    @media(max-width: 768px) {
+      background-color:@primary-bgColor;
+    }
+    @media (min-width: 992px) {
+      background-color:@primary-bgColor;
+    }
+    @media (min-width: 1200px) {
+      background-color:white;
+    }
+  }
+}
+
+.k_content {
+  margin-top:15px;
+
+  h1 {
+    text-align:center;
+    color:@primary-bgColor;
+    margin-bottom:20px;
+    font-size:48pt;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    color: @primary-bgColor;
+    font-weight:bold;
+  }
+
+  .k_gray {
+    background-color:@content-bgColor;
+  }
+
+  .content-container {
+    padding:20px;
+    font-size:@font-size-standard;
+    img {
+      border:1px solid @primary-color;
+    }
+  }
+}
+
+.k_footer {
+  text-align:center;
+  background-color:@footer-bgColor;
+  padding-top:0.6em;
+  padding-bottom:0.6em;
+  line-height:2.0em;
+  min-height:3.4em;
+  font-size:@font-size-standard;
+  font-weight:bold;
+  color:@secondary-color;
+  margin-top:10px;
+}

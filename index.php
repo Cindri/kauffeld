@@ -15,6 +15,8 @@ require_once('classes/model.php');
     require_once ('classes/models/Wochenkarte.php');
 require_once('classes/view.php');
 
+require_once "classes/FileHandler.php";
+
 // $_GET und $_POST zusammenfasen
 $request = array_merge($_GET, $_POST);
 // Controller erstellen

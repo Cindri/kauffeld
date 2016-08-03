@@ -10,7 +10,7 @@ class View
 {
     private $tmplPath = "templates/";
     private $template = "";
-    private $fileExt = ".phtml";
+    private $tmplExt = ".phtml";
     private $_ = array();
 
     public function assign($key, $value) {
@@ -28,20 +28,20 @@ class View
     /**
      * @param string $fileExt
      */
-    public function setFileExt($fileExt)
+    public function setTmplExt($fileExt)
     {
-        $this->fileExt = $fileExt;
+        $this->tmplExt = $fileExt;
     }
 
     public function loadTemplate(){
         $tpl = $this->template;
-        $file = $this->tmplPath . $tpl . $this->fileExt;
+        $file = $this->tmplPath . $tpl . $this->tmplExt;
         $exists = file_exists($file);
 
         if ($exists){
 
             ob_start();
-            if (in_array($this->fileExt, array(".php", ".php5", ".phtml"))) {
+            if (in_array($this->tmplExt, array(".php", ".php5", ".phtml"))) {
                 include $file;
                 $output = ob_get_contents();
             }
@@ -56,6 +56,17 @@ class View
         else {
             return 'could not find template:  '.$file;
         }
+    }
+
+    public function errorBox($errorType, $errorHead, $error) {
+        $return = '
+            <div class="alert '.$errorType.'">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>'.$errorHead.'</strong>
+                '.$error.'
+            </div>
+        ';
+        return $return;
     }
 
 }

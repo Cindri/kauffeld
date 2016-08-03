@@ -1,61 +1,47 @@
+@primary-color: black;
+@primary-bgColor: #DA2128;
+@secondary-color: #DFDFDF;
+@secondary-bgColor: #666666;
+@footer-bgColor: #121212;
+@content-bgColor: #999999;
+@font-size-nav:16pt;
+@font-size-standard:12pt;
+
 @import "layout.less";
 @import "adminStyle.less";
 
-@primary-color: black;
-@primary-bgColor: #DA2128;
-@secondary-color: white;
-@secondary-bgColor: #666666;
-@font-size-nav:16pt;
+/* Styles Home */
 
-
-#navigation {
-  .row {
-    div {
-      a {
-        background-color: @primary-bgColor !important;
-        color: @secondary-color;
-        width: 100%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        min-height:3.5em;
-        margin-bottom:10px;
-        font-size:@font-size-nav;
-        &:hover {
-          background-color:@secondary-bgColor !important;
-          color:@secondary-color !important;
-          text-decoration:none;
-        }
-      }
-      .active {
-        background-color:@secondary-bgColor !important;
-        color:@secondary-color !important;
-        text-decoration:none;
-      }
+.k_home-slider-caption {
+  background-color:@primary-bgColor;
+  opacity: 0.9;
+  font-size:@font-size-nav;
+  color:@secondary-color;
+  cursor:pointer;
+  padding-top:10px;
+  padding-bottom:10px;
+  a {
+    color:@secondary-color;
+    text-decoration:none;
+    &:hover {
+      text-decoration:none;
     }
   }
 }
 
-.k_header {
-  background-color:@primary-bgColor;
-  margin-bottom:10px;
-  padding-left:15px;
-  padding-right:15px;
-  .k_logo {
-    background-color:white;
-    padding-left:5px;
-    padding-right:5px;
-    @media(min-width: 768px) {
-      background-color:@primary-bgColor;
-    }
-    @media(max-width: 768px) {
-      background-color:@primary-bgColor;
-    }
-    @media (min-width: 992px) {
-      background-color:@primary-bgColor;
-    }
-    @media (min-width: 1200px) {
-      background-color:white;
-    }
-  }
+.carousel-caption {
+  left:20%;
+  right:20%;
+   @media (min-width:996px) {
+     left:40%;
+     right:40%;
+   }
+}
+
+.k_carousel-caption-top {
+  top:0;
+  left:10%;
+  right:10%;
+  font-size:48pt;
+  text-transform: uppercase;
 }

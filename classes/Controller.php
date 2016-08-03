@@ -37,7 +37,7 @@ class Controller
         }
         else {
             $this->view->setTemplate("error404");
-            $this->view->setFileExt(".html");
+            $this->view->setTmplExt(".html");
             return $this->view->loadTemplate();
         }
     }
@@ -46,28 +46,48 @@ class Controller
         $this->view->setTemplate("layout");
         $this->view->assign("activeLink", $this->template);
         switch ($this->template) {
+
+            // ----------------- HOME ------------------
             case "home":
-                // View für Unterseite generieren
                 $contentView = new View();
 
-                // Allgemeine Seitenangaben
                 $this->view->assign("title", "Metzgerei Kauffeld - Herzlich Willkommen!");
                 $this->view->assign("message", "Alles in Ordnung. Dies repräsentiert zugewiesene Daten für die Startseite.");
-                $this->view->assign("testData", "Blabla Testdata");
+                $this->view->assign("hideNavi", true);
 
-                // Seitenspezifische Daten
                 $contentView->setTemplate("home");
                 $contentView->assign("adText", "blabla Ad-Text");
 
-                // Content in eine Variable laden
                 $this->view->assign("pageContent", $contentView->loadTemplate());
                 break;
+
+            // ----------------- IMPRESSUM ------------------
             case "impressum":
                 $contentView = new View();
                 $contentView->setTemplate("impressum");
-                $contentView->setFileExt(".html");
+                $contentView->setTmplExt(".html");
                 $this->view->assign("pageContent", $contentView->loadTemplate());
                 break;
+
+            // ----------------- AKTUELLES ------------------
+            case "aktuelles":
+                $this->view->assign("title", "Metzgerei Kauffeld - Aktuelles");
+
+                // Load head img
+                $headImg = new FileHandler("img/5_Aktuelles_Steak.jpg", "image");
+                if (!empty($headImg->error)) {
+                    $this->view->assign("error", $this->view->errorBox("alert-warning", "Bild nicht gefunden!", $headImg->error));
+                }
+                else {
+                    $this->view->assign("headImg", $headImg->getUrl());
+                }
+
+                // Load content
+                $contentView = new View();
+                $contentView->setTemplate("aktuelles");
+                $this->view->assign("pageContent", $contentView->loadTemplate());
+                break;
+
         }
         return $this->view->loadTemplate();
     }
@@ -83,15 +103,15 @@ class Controller
                 else {
                     $this->pageData = new Mittagstisch("Hauptgeschäft");
                 }
-                // View für Unterseite generieren
+
                 $contentView = new View();
 
-                // Allgemeine Seitenangaben
+                // Layout-Parameter
                 $this->view->assign("title", "Metzgerei Kauffeld - Herzlich Willkommen!");
                 $this->view->assign("message", "Alles in Ordnung. Dies repräsentiert zugewiesene Daten für die Startseite.");
                 $this->view->assign("testData", "Blabla Testdata");
 
-                // Seitenspezifische Daten
+                // Seiten-Parameter
 
                 $contentView->setTemplate("mittagstisch");
                 $contentView->assign("adText", $this->pageData->getGeschaeft());
@@ -104,7 +124,7 @@ class Controller
             case "wochenangebot":
                 $contentView = new View();
                 $contentView->setTemplate("impressum");
-                $contentView->setFileExt(".html");
+                $contentView->setTmplExt(".html");
                 $this->view->assign("pageContent", $contentView->loadTemplate());
                 break;
 

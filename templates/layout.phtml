@@ -31,42 +31,63 @@ function linkActive($active, $link) {
     <div class="k_header">
     <div class="row">
         <div class="col-lg-1 -hidden-xs"><div class="k_head-bg">&nbsp;</div></div>
-        <div class="col-lg-3 col-xs-12"><div class="k_logo"><img src="img/logo.png" alt="Metzgerei Kauffeld - Logo" class="img-responsive"></div></div>
+        <div class="col-lg-3 col-xs-12"><div class="k_logo"><a href="home"><img src="img/logo.png" alt="Metzgerei Kauffeld - Logo" class="img-responsive"></a></div></div>
         <div class="col-lg-2 -hidden-xs">&nbsp;<div class="k_head-bg">&nbsp;</div></div>
         <div class="col-lg-6 -hidden-xs"><div class="k_head-bg">&nbsp;</div></div>
     </div>
     </div>
 </div>
-<div class="container">
-    <nav id="navigation">
+
+    <div class="container">
+        <nav id="k_navigation">
+            <div class="row">
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <a href="mittagstisch" <?php echo linkActive($p->_['activeLink'], "mittagstisch"); ?>>Mittagstisch</a>
+                </div>
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <a href="wochenangebot" <?php echo linkActive($p->_['activeLink'], "wochenangebot"); ?>>Wochenangebot</a>
+                </div>
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <a href="catering" <?php echo linkActive($p->_['activeLink'], "catering"); ?>>Catering</a>
+                </div>
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <a href="aktuelles" <?php echo linkActive($p->_['activeLink'], "aktuelles"); ?>>Aktuelles</a>
+                </div>
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <a href="wirueberuns" <?php echo linkActive($p->_['activeLink'], "wirueberuns"); ?>>Wir über uns</a>
+                </div>
+                <div class="col-lg-2 col-sm-4 col-xs-12">
+                    <a href="impressum" <?php echo linkActive($p->_['activeLink'], "impressum"); ?>>Kontakt</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+<?php if (!empty($p->_['error'])) { echo '<div class="container">'.$p->_['error'].'</div>'; } ?>
+
+<?php
+if (!empty($p->_['headImg'])) {
+    ?>
+    <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-sm-4 col-xs-12">
-                <a href="mittagstisch" <?php echo linkActive($p->_['activeLink'], "mittagstisch"); ?>>Mittagstisch</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 col-xs-12">
-                <a href="wochenangebot" <?php echo linkActive($p->_['activeLink'], "wochenangebot"); ?>>Wochenangebot</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 col-xs-12">
-                <a href="catering" <?php echo linkActive($p->_['activeLink'], "catering"); ?>>Catering</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 col-xs-12">
-                <a href="aktuelles" <?php echo linkActive($p->_['activeLink'], "aktuelles"); ?>>Aktuelles</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 col-xs-12">
-                <a href="wirueberuns" <?php echo linkActive($p->_['activeLink'], "wirueberuns"); ?>>Wir über uns</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 col-xs-12">
-                <a href="impressum" <?php echo linkActive($p->_['activeLink'], "impressum"); ?>>Kontakt</a>
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <img src="<?php echo $p->_['headImg']; ?>" alt="Panoramabild Metzgerei Kauffeld Baden-Baden" class="img-responsive" />
             </div>
         </div>
-    </nav>
-</div>
+    </div>
+<?php
+}
+?>
 
-<div class="container">
+<div class="container k_content">
     <?php echo $p->_['pageContent']; ?>
 </div>
 
-
+<div class="container">
+    <div class="k_footer">
+        Heinrich Kauffeld | Wurst- und Fleischwaren | Wilhelm-Drapp-Str. 14  D-76532 Baden-Baden | Telefon: 07221 - 50 46 590 | Fax: 07221 - 50 46 69 99
+    </div>
+</div>
 
 </body>
 </html>
