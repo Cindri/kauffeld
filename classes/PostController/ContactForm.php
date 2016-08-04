@@ -37,7 +37,7 @@ else {
         if (trim($this->request['contactForm_subject']) == "") {
             $this->view->assign("error", $this->view->errorBox("alert-warning", "Kein Betreff angegeben!", "Ihre Nachricht wird versendet, jedoch wurde kein Betreff angegeben. Dies kann z.B. dazu führen, dass Ihre Nachricht in unserem Spamordner landet und nicht oder verspätet bearbeitet wird. Um sicher zu gehen, versenden Sie die gleiche Nachricht noch einmal mit Betreff."));
         }
-        
+
         // Everything is fine, start email delivery
         $empfaenger = 'davidpeter1337@gmail.com';
         $betreff = trim(substr($this->request['contactForm_subject'], 0, 255));
