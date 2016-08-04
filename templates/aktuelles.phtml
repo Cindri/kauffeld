@@ -5,21 +5,20 @@ $images = array(
 );
 ?>
 
-<h1>Aktuelles</h1>
 <div class="k_gray">
     <div class="row">
         <div class="col-lg-4 col-xs-12">
-            <div class="content-container">
+            <div class="k_content-container">
             <?php
             // Lade Bild nur, wenn nicht größer als 1MB und wenn kein Fehler
             if (empty($images["kikok"]->error) AND $images["kikok"]->getFileSize() <= 1000000) {
-                echo '<img src="'.$images["kikok"]->getUrl().'" class="img-responsive"/>';
+                echo '<img src="'.BASE_URL.$images["kikok"]->getUrl().'" class="img-responsive"/>';
             }
             ?>
             </div>
         </div>
         <div class="col-lg-8 col-xs-12">
-            <div class="content-container">
+            <div class="k_content-container">
                 <h2>Kikok Hähnchen</h2>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
@@ -29,17 +28,17 @@ $images = array(
     <hr style="hidden-lg-up" />
     <div class="row">
         <div class="col-lg-4 col-xs-12">
-            <div class="content-container">
+            <div class="k_content-container">
             <?php
             // Lade Bild nur, wenn nicht größer als 1MB und wenn kein Fehler
             if (empty($images["schinken"]->error) AND $images["schinken"]->getFileSize() <= 1000000) {
-                echo '<img src="'.$images["schinken"]->getUrl().'" class="img-responsive" />';
+                echo '<img src="'.BASE_URL.$images["schinken"]->getUrl().'" class="img-responsive" />';
             }
             ?>
             </div>
         </div>
         <div class="col-lg-8 col-xs-12">
-            <div class="content-container">
+            <div class="k_content-container">
                 <h2>Schwarzwälder Schinken</h2>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

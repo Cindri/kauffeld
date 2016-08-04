@@ -12,6 +12,7 @@ class View
     private $template = "";
     private $tmplExt = ".phtml";
     private $_ = array();
+    private $pageData = null;
 
     public function assign($key, $value) {
         $this->_[$key] = $value;

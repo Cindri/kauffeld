@@ -35,6 +35,9 @@
     background-color:white;
     padding-left:5px;
     padding-right:5px;
+    a {
+      z-index:10;
+    }
     @media(min-width: 768px) {
       background-color:@primary-bgColor;
     }
@@ -46,36 +49,6 @@
     }
     @media (min-width: 1200px) {
       background-color:white;
-    }
-  }
-}
-
-.k_content {
-  margin-top:15px;
-
-  h1 {
-    text-align:center;
-    color:@primary-bgColor;
-    margin-bottom:20px;
-    font-size:48pt;
-  }
-
-  h2 {
-    margin: 0;
-    padding: 0;
-    color: @primary-bgColor;
-    font-weight:bold;
-  }
-
-  .k_gray {
-    background-color:@content-bgColor;
-  }
-
-  .content-container {
-    padding:20px;
-    font-size:@font-size-standard;
-    img {
-      border:1px solid @primary-color;
     }
   }
 }

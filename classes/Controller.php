@@ -9,128 +9,97 @@
 class Controller
 {
     private $request = null;
-    private $template = '';
+    private $page = '';
     private $view = null;
-    private $pageData = null;
 
 
     // ------ VERY IMPORTANT: ALL ALLOWED PATHS ARE SAVED HERE
 
     public function __construct($request){
         $this->request = $request;
-        $this->template = strtolower(!empty($request['view']) ? $request['view'] : 'home');
+        $temp_tmpl = !empty($request['view']) ? $request['view'] : 'home';
+        $this->page = trim(str_replace("/", "", $temp_tmpl));
         $this->view = new View();
     }
 
     public function display() {
-        if (in_array($this->template, $GLOBALS['pages']['dynamic'])) {
-            return self::displayDynamic();
-        }
-        else if (in_array($this->template, $GLOBALS['pages']['static'])) {
-            return self::displayStatic();
-        }
-        else if (in_array($this->template, $GLOBALS['pages']['admin'])) {
 
-        }
-        else if (in_array($this->template, $GLOBALS['pages']['post'])) {
 
-        }
-        else {
-            $this->view->setTemplate("error404");
-            $this->view->setTmplExt(".html");
+        // dynamic pages
+
+        if (in_array($this->page, $GLOBALS['pages']['dynamic'])) {
+            $this->view->assign("activeLink", $this->page);
+            $this->view->setTemplate("layout");
+            switch ($this->page) {
+                case "mittagstisch":
+                case "mittagskarte":
+                    include "classes/GetController/MittagstischController.php";
+                    break;
+
+                case "wochenangebot":
+                    include "classes/GetController/WochenangebotController.php";
+                    break;
+
+                case "catering":
+                    include "classes/GetController/CateringController.php";
+                    break;
+            }
             return $this->view->loadTemplate();
         }
-    }
 
-    private function displayStatic() {
-        $this->view->setTemplate("layout");
-        $this->view->assign("activeLink", $this->template);
-        switch ($this->template) {
 
-            // ----------------- HOME ------------------
-            case "home":
-                $contentView = new View();
+        // static pages
 
-                $this->view->assign("title", "Metzgerei Kauffeld - Herzlich Willkommen!");
-                $this->view->assign("message", "Alles in Ordnung. Dies repräsentiert zugewiesene Daten für die Startseite.");
-                $this->view->assign("hideNavi", true);
+        else if (in_array($this->page, $GLOBALS['pages']['static'])) {
+            $this->view->setTemplate("layout");
+            $this->view->assign("activeLink", $this->page);
+            switch ($this->page) {
 
-                $contentView->setTemplate("home");
-                $contentView->assign("adText", "blabla Ad-Text");
+                // ----------------- HOME ------------------
+                case "home":
+                    include "classes/GetController/HomeController.php";
+                    break;
 
-                $this->view->assign("pageContent", $contentView->loadTemplate());
-                break;
+                // ----------------- IMPRESSUM ------------------
+                case "kontakt":
+                case "impressum":
+                    include "classes/GetController/ImpressumController.php";
+                    break;
 
-            // ----------------- IMPRESSUM ------------------
-            case "impressum":
-                $contentView = new View();
-                $contentView->setTemplate("impressum");
-                $contentView->setTmplExt(".html");
-                $this->view->assign("pageContent", $contentView->loadTemplate());
-                break;
+                // ----------------- AKTUELLES ------------------
+                case "aktuelles":
+                    include "classes/GetController/AktuellesController.php";
+                    break;
 
-            // ----------------- AKTUELLES ------------------
-            case "aktuelles":
-                $this->view->assign("title", "Metzgerei Kauffeld - Aktuelles");
 
-                // Load head img
-                $headImg = new FileHandler("img/5_Aktuelles_Steak.jpg", "image");
-                if (!empty($headImg->error)) {
-                    $this->view->assign("error", $this->view->errorBox("alert-warning", "Bild nicht gefunden!", $headImg->error));
-                }
-                else {
-                    $this->view->assign("headImg", $headImg->getUrl());
-                }
+                case "wirueberuns":
+                    include "classes/GetController/WirueberunsController.php";
+                    break;
 
-                // Load content
-                $contentView = new View();
-                $contentView->setTemplate("aktuelles");
-                $this->view->assign("pageContent", $contentView->loadTemplate());
-                break;
+            }
+            return $this->view->loadTemplate();
+        }
+
+        // Admin pages
+
+        else if (in_array($this->page, $GLOBALS['pages']['admin'])) {
 
         }
-        return $this->view->loadTemplate();
-    }
 
-    private function displayDynamic() {
-        $this->view->assign("activeLink", $this->template);
-        $this->view->setTemplate("layout");
-        switch ($this->template) {
-            case "mittagstisch":
-                if (!empty($this->request['subpage']) && trim($this->request['subpage']) == "rheinstrasse") {
-                    $this->pageData = new Mittagstisch("Rheinstrasse");
-                }
-                else {
-                    $this->pageData = new Mittagstisch("Hauptgeschäft");
-                }
+        // POST handler
 
-                $contentView = new View();
-
-                // Layout-Parameter
-                $this->view->assign("title", "Metzgerei Kauffeld - Herzlich Willkommen!");
-                $this->view->assign("message", "Alles in Ordnung. Dies repräsentiert zugewiesene Daten für die Startseite.");
-                $this->view->assign("testData", "Blabla Testdata");
-
-                // Seiten-Parameter
-
-                $contentView->setTemplate("mittagstisch");
-                $contentView->assign("adText", $this->pageData->getGeschaeft());
-                $contentView->assign("dbInfo", $this->pageData->getDbConn()->client_info);
-
-                // Content in eine Variable laden
-                $this->view->assign("pageContent", $contentView->loadTemplate());
-                break;
-
-            case "wochenangebot":
-                $contentView = new View();
-                $contentView->setTemplate("impressum");
-                $contentView->setTmplExt(".html");
-                $this->view->assign("pageContent", $contentView->loadTemplate());
-                break;
-
-            case "catering":
-                break;
+        else if (in_array($this->page, $GLOBALS['pages']['post'])) {
+            switch ($this->page) {
+                case "postContactForm":
+                    include "classes/PostController/ContactForm.php";
+                    return $this->view->loadTemplate();
+                    break;
+            }
         }
-        return $this->view->loadTemplate();
+        else {
+            $this->view->assign("page", $this->page);
+            $this->view->setTemplate("error404");
+            return $this->view->loadTemplate();
+        }
     }
 }

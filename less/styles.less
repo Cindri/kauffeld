@@ -1,16 +1,27 @@
 @primary-color: black;
 @primary-bgColor: #DA2128;
+@primary-bgColor-weak: #DA4E53;
 @secondary-color: #DFDFDF;
 @secondary-bgColor: #666666;
 @footer-bgColor: #121212;
-@content-bgColor: #999999;
+@content-bgColor: #cccccc;
 @font-size-nav:16pt;
 @font-size-standard:12pt;
 
 @import "layout.less";
 @import "adminStyle.less";
 
-/* Styles Home */
+a {
+  color:@primary-bgColor;
+  text-decoration:none;
+  &:hover {
+    color:@primary-bgColor-weak;
+    text-decoration:underline;
+  }
+  &:visited {
+    color:@primary-bgColor;
+  }
+}
 
 .k_home-slider-caption {
   background-color:@primary-bgColor;
@@ -29,13 +40,63 @@
   }
 }
 
+h1 {
+  text-align:center;
+  color:@primary-bgColor;
+  margin-bottom:20px;
+  font-size:48pt;
+}
+
+.k_content {
+  margin-top:15px;
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    color: @primary-bgColor;
+    font-weight:bold;
+  }
+
+  h4 {
+    color: @primary-bgColor;
+  }
+
+  .k_gray {
+    background-color:@content-bgColor;
+  }
+
+  .k_content-container {
+    padding:20px;
+    font-size:@font-size-standard;
+    img {
+      border:1px solid @primary-color;
+    }
+    .media {
+      .media-body {
+        font-size:10pt;
+        padding-left:15px;
+      }
+    }
+
+    .input-group {
+      margin-bottom:20px;
+    }
+
+    .btn-primary {
+      background-color:@primary-bgColor-weak;
+      border-color:@primary-bgColor;
+      font-size:12pt;
+    }
+  }
+}
+
 .carousel-caption {
   left:20%;
   right:20%;
-   @media (min-width:996px) {
-     left:40%;
-     right:40%;
-   }
+  @media (min-width:996px) {
+    left:40%;
+    right:40%;
+  }
 }
 
 .k_carousel-caption-top {

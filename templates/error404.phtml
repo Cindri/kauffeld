@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Metzgerei Kauffeld - Error 404</title>
+</head>
+<body>
+<div id="siteWrapper">
+    <div>
+        <h1>Seite nicht gefunden</h1>
+        <p>Diese Seite konnte leider nicht gefunden werden.</p>
+    </div>
+    <div>
+        Seite: <?php echo $this->_['page']; ?>
+        <pre>
+            <?php print_r($_GET); ?>
+        </pre>
+        <pre>
+            <?php print_r($_POST); ?>
+        </pre>
+    </div>
+</div>
+</body>
+</html>

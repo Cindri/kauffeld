@@ -1,5 +1,6 @@
 RewriteEngine on
 RewriteBase /kauffeld/
-RewriteRule ^([a-zA-Z^/]+)/?$ index.php?view=$1
-RewriteRule ^([a-zA-Z^/]+)/([a-zA-Z^/]+)/?$ index.php?view=$1&subpage=$2
+RewriteRule ^([a-zA-Z]+/?)$ index.php?view=$1
+RewriteRule ^([a-zA-Z]+/?)/([a-zA-Z]+/?)$ index.php?view=$1&subpage=$2
+
 #RewriteRule ^([a-zA-Z]+)/?/([a-z]+)/?/([0-9]+)/?$ index.php?mode=$1&action=$2&user=$3

@@ -1,0 +1,90 @@
+<div class="k_gray">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 col-xs-12">
+            <div class="k_content-container">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1137.4693741532217!2d8.196876140670696!3d48.7941716622958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47971e4a38a3f8a3%3A0x38551fa8cdc95d2f!2sKauffeld+Schwarzw%C3%A4lder+Fleischwaren+GmbH!5e0!3m2!1sde!2sde!4v1470300929678" width="250" height="250" class="media-object" style="border:0;" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-body">
+                        <h4>Baden-Baden Oos<br/><small>Hauptgeschäft</small></h4>
+                        Wilhelm-Drapp-Str. 14<br/>
+                        76532 Baden-Baden<br/>
+                        Telefon: (07221) 504669-0 <br/>
+                        Fax: (07221) 504669-99<br/>
+                        E-Mail: <a href="mailto:info@metzgerei-kauffeld.de">info@metzgerei-kauffeld.de</a><br/>
+                        Ansprechpartner:<br/>Fr. Sabine Kauffeld<br/><br/>
+                        Mo.-Fr. 7.00-18.30 Uhr<br/>
+                        Sa. 8.00-15.00 Uhr<br><br>
+                        <a href="<?php echo BASE_URL; ?>mittagskarte/oos">Aktuelle Mittagskarte</a>
+                    </div>
+                </div>
+            </div>
+            <div class="k_content-container">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d390.83559361905895!2d8.217881766876465!3d48.77772830461057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47971f0865f9a171%3A0xe40249fec98e440a!2sRheinstra%C3%9Fe+79%2C+76532+Baden-Baden!5e0!3m2!1sde!2sde!4v1470303359855" width="250" height="250" class="media-object" style="border:0" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-body">
+                        <h4>Baden-Baden Weststadt</h4>
+                        Rheinstr. 79<br/>
+                        76532 Baden-Baden<br/>
+                        Telefon/Fax: (07221) 17389 <br/>
+                        Ansprechpartner: Frau Heide Hörth<br/><br/>
+
+                        Mo.-Fr. 8.00-18.30 Uhr<br/>
+                        Sa. 8.00-13.00 Uhr<br/><br/>
+                        <a href="<?php echo BASE_URL; ?>mittagskarte/weststadt">Aktuelle Mittagskarte</a>
+                    </div>
+                </div>
+            </div>
+            <div class="k_content-container">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d654.3359861061466!2d8.330107982770258!3d49.00404117518814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4797013564fab3ed%3A0xeee49d513c3add06!2sKastenw%C3%B6rtstra%C3%9Fe+25%2C+76189+Karlsruhe!5e0!3m2!1sde!2sde!4v1470303456347" width="250" height="250" class="media-object" style="border:0" allowfullscreen></iframe>
+                    </div>
+                    <div class="media-body">
+                        <h4>Karlsruhe-Daxlanden</h4>
+                        Kastenwörtstr. 25<br/>
+                        76189 Karlsruhe-Daxlanden<br/>
+                        Telefon: (0721) 573834<br/>
+                        Fax: (0721) 5042583<br/>
+                        Ansprechpartner: Herr Markus Lathan<br/><br/>
+
+                        Mo.-Fr. 7.00-13.00 Uhr, 15.00-18.00 Uhr<br/>
+                        Mi. Mittag geschlossen<br/>
+                        Sa. 6.30-12.30 Uhr<br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-xs-12">
+            <div class="k_content-container">
+                <h4>Rufen Sie uns an, schreiben Sie uns eine E-Mail oder<br>nutzen Sie unser Kontaktformular:</h4>
+                <form action="<?php echo BASE_URL; ?>postContactForm" method="POST" accept-charset="UTF-8">
+                    <label for="contactForm_name">Name:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="addon_name"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                        <input type="text" class="form-control input-lg" name="contactForm_name" id="contactForm_name" placeholder="Ihr Name" value="<?php echo (!isset($this->_['contactForm_name']) ? "" : $this->_['contactForm_name']); ?>" aria-describedby="addon_name">
+                    </div>
+                    <label for="contactForm_email">E-Mail-Adresse:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="addon_mail"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+                        <input type="text" class="form-control input-lg" id="contactForm_email" name="contactForm_email" placeholder="Ihre E-Mail-Adresse" value="<?php echo (!isset($this->_['contactForm_email']) ? "" : $this->_['contactForm_email']); ?>" aria-describedby="addon_mail">
+                    </div>
+                    <label for="contactForm_betreff">Betreff:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="addon_betreff"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span></span>
+                        <input type="text" class="form-control input-lg" id="contactForm_betreff" name="contactForm_subject" placeholder="Der Betreff Ihrer Nachricht" value="<?php echo (!isset($this->_['contactForm_subject']) ? "" : $this->_['contactForm_subject']); ?>" aria-describedby="addon_betreff">
+                    </div>
+                    <label for="contactForm_msg">Ihre Nachricht:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="addon_msg"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></span>
+                        <textarea class="form-control input-lg" id="contactForm_msg" name="contactForm_msg" rows="10" placeholder="Ihre Nachricht an uns" aria-describedby="addon_msg"><?php echo (!isset($this->_['contactForm_msg']) ? "" : $this->_['contactForm_msg']); ?></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary input-lg" name="contactForm_submit" value="Absenden" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
