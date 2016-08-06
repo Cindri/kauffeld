@@ -26,6 +26,29 @@
   }
 }
 
+.subnavi {
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  margin-top:15px;
+  font-size:11pt;
+  a {
+    padding-left:4px;
+    padding-right:4px;
+    font-weight:bold;
+    color:@secondary-bgColor;
+    &:hover {
+      color:@primary-bgColor;
+    }
+    &:visited {
+      color:@secondary-bgColor;
+    }
+    &.active {
+      color:@primary-bgColor;
+    }
+  }
+}
+
 .k_header {
   background-color:@primary-bgColor;
   margin-bottom:10px;

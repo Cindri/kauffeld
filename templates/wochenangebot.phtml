@@ -1,0 +1,47 @@
+<?php
+$wochenangebotData = $this->_['entries'];
+$werbetext = $wochenangebotData['addData']['werbetext'];
+?>
+<div class="k_gray">
+    <div class="k_content-container">
+        <h2>Unser Wochenangebot vom <?php echo $wochenangebotData['addData']['start'] . ' - ' . $wochenangebotData['addData']['end']; ?></h2>
+        <div class="table-responsive">
+            <table class="table k_table">
+                <?php
+                $lastType = "";
+                foreach ($wochenangebotData['entries'] as $value) {
+                    if ($value['type'] != $lastType && $lastType != "") {
+                        echo '
+                        <tr>
+                            <td colspan="2" class="k_head">'.$value['type'].'</td>
+                        </tr>
+                        ';
+                    }
+
+                    $lastType = $value['type'];
+                    ?>
+                    <tr>
+                        <td>
+                            <strong><?php echo $value['title']; ?></strong>
+                            <small><?php echo $value['desc']; ?></small>
+                        </td>
+                        <td>
+                            <small><?php echo $value['price'] ?> € / <?php echo $value['unit']; ?></small>
+                        </td>
+                    </tr>
+                    <?php
+                }
+
+                if (!empty($werbetext)) {
+                    ?>
+                    <tr>
+                        <td colspan="2"><?php echo $werbetext; ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
+
+            </table>
+        </div>
+    </div>
+</div>

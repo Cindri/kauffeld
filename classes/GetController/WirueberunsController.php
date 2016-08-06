@@ -1,4 +1,5 @@
 <?php
+$this->view->assign("title", "Metzgerei Kauffeld - Wir über uns");
 $this->view->assign("header", "Wir über uns");
 // Load head img
 $headImg = new FileHandler("img/6_wirueberuns.jpg", "image");

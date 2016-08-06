@@ -70,4 +70,11 @@ class View
         return $return;
     }
 
+    public function exists() {
+        return file_exists($this->tmplPath.$this->template.$this->tmplExt);
+    }
+
+    public function setPageData($data) {
+        $this->pageData = $data;
+    }
 }

@@ -30,13 +30,15 @@ function linkActive($active, $link) {
 <div class="container">
     <div class="k_header">
     <div class="row">
-        <div class="col-lg-1 hidden-xs"><div class="k_head-bg">&nbsp;</div></div>
+        <div class="col-lg-1 hidden-xs hidden-sm hidden-md"><div class="k_head-bg">&nbsp;</div></div>
         <div class="col-lg-3 col-xs-12"><div class="k_logo"><a href="<?php echo BASE_URL; ?>home"><img src="<?php echo BASE_URL; ?>img/logo.png" alt="Metzgerei Kauffeld - Logo" class="img-responsive"></a></div></div>
-        <div class="col-lg-2 hidden-xs">&nbsp;<div class="k_head-bg">&nbsp;</div></div>
-        <div class="col-lg-6 hidden-xs"><div class="k_head-bg">&nbsp;</div></div>
+        <div class="col-lg-2 hidden-xs hidden-sm hidden-md">&nbsp;<div class="k_head-bg">&nbsp;</div></div>
+        <div class="col-lg-6 hidden-xs hidden-sm hidden-md"><div class="k_head-bg">&nbsp;</div></div>
     </div>
     </div>
 </div>
+
+
 <?php if (empty($p->_['hideNavi'])) { ?>
     <div class="container">
         <nav id="k_navigation">
@@ -65,7 +67,10 @@ function linkActive($active, $link) {
     <?php
 }
 ?>
+
+
 <?php if (!empty($p->_['error'])) { echo '<div class="container">'.$p->_['error'].'</div>'; } ?>
+
 
 <?php
 if (!empty($p->_['headImg'])) {
@@ -79,7 +84,23 @@ if (!empty($p->_['headImg'])) {
     </div>
 <?php
 }
+
+
+if (!empty($p->_['subNavi'])) {
 ?>
+<div class="container">
+    <div class="subnavi text-justify" style="width:100%">
+        <?php
+        foreach ($p->_['subNavi'] as $key => $value) {
+            $active = ($p->_['subNavi_active'] == $key ? ' class="active"' : '');
+            echo '<a href="'.BASE_URL.$p->_['activeLink']."/".$key.'"'.$active.'>'.$value.'</a>';
+        }
+        ?>
+    </div>
+</div>
+<?php } ?>
+
+
 <h1><?php echo $p->_['header']; ?></h1>
 <div class="container k_content">
     <?php echo $p->_['pageContent']; ?>

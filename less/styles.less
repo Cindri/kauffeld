@@ -87,6 +87,30 @@ h1 {
       border-color:@primary-bgColor;
       font-size:12pt;
     }
+
+    .k_table {
+      margin-top:15px;
+      td {
+        vertical-align:bottom;
+        &.k_head {
+          padding-top:20px;
+          font-weight:bold;
+          color:@secondary-bgColor;
+          font-size:@font-size-standard + 2;
+        }
+      }
+      strong {
+        display:block;
+        width:100%;
+        font-size:@font-size-standard;
+        color:@primary-bgColor;
+      }
+      small {
+        width:100%;
+        display:block;
+        font-style:italic;
+      }
+    }
   }
 }
 
