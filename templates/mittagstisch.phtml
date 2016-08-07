@@ -1,5 +1,43 @@
 <div class="k_gray">
     <div class="k_content-container">
-        Die Seite wurde mit dem Hauptgeschäft <?php echo $this->_['adText']; ?> initialisiert.
+        <h2>Unser Mittagstisch (Filiale <?php echo $this->_['filiale']; ?>) <br/> <small><?php echo $this->_['startDate'] . ' - ' . $this->_['endDate']; ?>, KW <?php echo $this->_['kw']; ?></small></h2>
+        <div class="table-responsive">
+            <table class="table k_table">
+                <?php
+                $lastHeader = "";
+                foreach ($this->_['entries'] as $value) {
+                    if ($value['headline'] != $lastHeader && $lastHeader != "") {
+                        echo '
+                        <tr>
+                            <td colspan="2" class="k_head">'.$value['headline'].'</td>
+                        </tr>
+                        ';
+                    }
+
+                    $lastHeader = $value['headline'];
+                    ?>
+                    <tr>
+                        <td>
+                            <strong><?php echo $value['title']; ?></strong>
+                            <small><?php echo $value['descr']; ?></small>
+                        </td>
+                        <td>
+                            <small><?php echo $value['price'] ?> €</small>
+                        </td>
+                    </tr>
+                    <?php
+                }
+
+                if (!empty($this->_['werbetext'])) {
+                    ?>
+                    <tr>
+                        <td colspan="2"><?php echo $this->_['werbetext']; ?></td>
+                    </tr>
+                    <?php
+                }
+                ?>
+
+            </table>
+        </div>
     </div>
 </div>

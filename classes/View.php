@@ -63,7 +63,7 @@ class View
         $return = '
             <div class="alert '.$errorType.'">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>'.$errorHead.'</strong>
+                <strong>'.$errorHead.'</strong><br/>
                 '.$error.'
             </div>
         ';
