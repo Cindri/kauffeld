@@ -6,7 +6,7 @@
                 <?php
                 $lastHeader = "";
                 foreach ($this->_['entries'] as $value) {
-                    if ($value['headline'] != $lastHeader && $lastHeader != "") {
+                    if ($value['headline'] != $lastHeader) {
                         echo '
                         <tr>
                             <td colspan="2" class="k_head">'.$value['headline'].'</td>

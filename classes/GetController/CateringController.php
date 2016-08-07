@@ -24,8 +24,7 @@ $pageContent = new View();
 
 $entries = $data->getEntries();
 if (!empty($entries['error'])) {
-    $this->view->assign("error", $entries['error']);
-    $finalContent = '';
+    $finalContent = $entries['error'];
 }
 else {
     $pageContent->assign("entries", $entries);
