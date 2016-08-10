@@ -15,7 +15,9 @@ class Wochenkarte extends Model
         else {
             if ($res->num_rows != 0) {
                 while ($row = $res->fetch_object()) {
-
+                    if (empty($row->title)) {
+                        continue;
+                    }
                     if (!isset($start)) {
                         $start = new DateTime($row->startDate);
                         $end = new DateTime($row->endDate);

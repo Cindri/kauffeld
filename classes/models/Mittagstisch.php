@@ -115,6 +115,9 @@ class Mittagstisch extends Model
         $res = $this->getDbConn()->query($sql) OR die($this->getDbConn()->error);
 
         for ($i = 0; $meal = $res->fetch_object(); $i++) {
+            if (empty($meal->title)) {
+                continue;
+            }
             $returnList["entries"][$i]['headline'] = empty($dayWords[$meal->day]) ? $meal->type : $dayWords[$meal->day];
             $returnList["entries"][$i]['title'] = $meal->title;
             $returnList["entries"][$i]['descr'] = $meal->description;

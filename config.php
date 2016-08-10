@@ -16,6 +16,7 @@ $pages = array(
         "impressum"
     ),
     "admin" => array(
+        "admin"
     ),
     "post" => array(
         "postContactForm"

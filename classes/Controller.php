@@ -83,7 +83,6 @@ class Controller
         // Admin pages
 
         else if (in_array($this->page, $GLOBALS['pages']['admin'])) {
-
         }
 
         // POST handler
