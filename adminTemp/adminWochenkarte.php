@@ -43,21 +43,25 @@ if (!empty($_POST)) {
 
         $sql = "SELECT * FROM wochenangebot WHERE kartenID = '1' ORDER BY ID ASC ";
         $speisenRes = $dbConn->query($sql);
-        echo 'Gültig vom <input type="text" name="startDate" value="'.$startDate->format("d.m.Y").'"/> bis zum <input type="text" name="endDate" value="'.$endDate->format("d.m.Y").'"/>';
+        echo 'Gültig vom <input type="text" name="startDate" value="'.$startDate->format("d.m.Y").'"/> bis zum <input type="text" name="endDate" value="'.$endDate->format("d.m.Y").'"/><br><br><br>';
         echo '<table>';
         while ($speisen = $speisenRes->fetch_object()) {
             echo '
             <tr>
-                <td><input type="text" name="title['.$speisen->ID.']" value="'.$speisen->title.'"/><br><input type="text" name="description['.$speisen->ID.']" value="'.$speisen->description.'"/></td>
+                <td><input type="text" size="100" name="title['.$speisen->ID.']" value="'.$speisen->title.'"/><br><input size="100" type="text" name="description['.$speisen->ID.']" value="'.$speisen->description.'"/></td>
                 <td><input type="text" name="price['.$speisen->ID.']" value="'.$speisen->price.'" size="10"/> / <input type="text" name="unit['.$speisen->ID.']" value="'.$speisen->unit.'" size="7"/>
                     <input type="hidden" name="type['.$speisen->ID.']" value="'.$speisen->type.'"</td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
             </tr>
             ';
         }
         ?>
             <tr>
                 <td colspan="2">
-                    <textarea name="werbetext" cols="40" rows="6"><?php echo $werbetext; ?></textarea>
+                    Werbetext:<br/>
+                    <textarea name="werbetext" cols="80" rows="6"><?php echo $werbetext; ?></textarea>
                 </td>
             </tr>
             <tr>

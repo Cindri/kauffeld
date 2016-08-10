@@ -24,7 +24,7 @@ $dbConn = new mysqli(SQL_HOST, SQL_USER, SQL_PASS, SQL_DB);
 $dbConn->query("SET NAMES 'utf8'");
 $dateSource = new DateTime();
 
-$tisch = $_GET['tisch'];
+@$tisch = $_GET['tisch'];
 
 if (!empty($_POST)) {
     if ($tisch == "hauptgeschaeft") {
@@ -109,18 +109,19 @@ if (!empty($_POST)) {
 
                 for ($i = 1; $i <= 6; $i++) {
                     $z = $i*2;
-                    echo '<tr><td>' . $speisen[($z-1)]['headline'] . '<input type="hidden" name="tag['.($z-1).']" value="'.$speisen[$z-1]['day'].'"></td><td><input type="text" name="title['.($z-1).']" value="' . $speisen[($z-1)]['title'] . '"><br/><input type="text" name="description[' . ($z-1) . ']" value="' . $speisen[($z-1)]['descr'] . '"></td><td><input type="text" name="price[' . ($z-1) . ']" value="' . $speisen[($z-1)]['price'] . '"></td></tr>';
-                    echo '<tr><td>' . $speisen[$z]['headline'] . '<input type="hidden" name="tag['.($z).']" value="'.$speisen[$z]['day'].'"></td><td><input type="text" name="title[' . $z . ']" value="' . $speisen[$z]['title'] . '"><br/><input type="text" name="description[' . $z . ']" value="' . $speisen[$z]['descr'] . '"/></td><td><input type="text" name="price[' . $z . ']" value="' . $speisen[$z]['price'] . '"></td></tr>';
+                    echo '<tr><td>' . $speisen[($z-1)]['headline'] . '<input type="hidden" name="tag['.($z-1).']" value="'.$speisen[$z-1]['day'].'"></td><td><input size="100" type="text" name="title['.($z-1).']" value="' . $speisen[($z-1)]['title'] . '"><br/><input type="text" size="100" name="description[' . ($z-1) . ']" value="' . $speisen[($z-1)]['descr'] . '"></td><td><input type="text" name="price[' . ($z-1) . ']" value="' . $speisen[($z-1)]['price'] . '"></td></tr>';
+                    echo '<tr><td>' . $speisen[$z]['headline'] . '<input type="hidden" name="tag['.($z).']" value="'.$speisen[$z]['day'].'"></td><td><input size="100" type="text" name="title[' . $z . ']" value="' . $speisen[$z]['title'] . '"><br/><input type="text" size="100" name="description[' . $z . ']" value="' . $speisen[$z]['descr'] . '"/></td><td><input type="text" name="price[' . $z . ']" value="' . $speisen[$z]['price'] . '"></td></tr>';
+                    echo '<tr><td colspan="3"><hr></td></tr>';
                 }
             }
             else {
                 for ($i = 1; $i <= 6; $i++) {
-                    echo '<tr><td>' . $speisen[$i]['headline'] . '</td><td><input type="text" name="title[' . $i . ']" value="' . $speisen[$i]['title'] . '"><br/>
-                    <input type="text" name="description[' . $i . ']" value="' . $speisen[$i]['descr'] . '"></td><td><input type="text" name="price[' . $i . ']" value="' . $speisen[$i]['price'] . '"></td></tr>';
+                    echo '<tr><td>' . $speisen[$i]['headline'] . '</td><td><input type="text" size="100" name="title[' . $i . ']" value="' . $speisen[$i]['title'] . '"><br/>
+                    <input type="text" size="100" name="description[' . $i . ']" value="' . $speisen[$i]['descr'] . '"></td><td><input type="text" name="price[' . $i . ']" value="' . $speisen[$i]['price'] . '"></td></tr>';
 
                 }
             }
-            echo '<tr><td>Werbetext:</td><td colspan="2"><textarea name="werbetext" cols="60" rows="6">'.$rowKarte->werbetext.'</textarea></td></tr>';
+            echo '<tr><td>Werbetext:</td><td colspan="2"><textarea name="werbetext" cols="80" rows="6">'.$rowKarte->werbetext.'</textarea></td></tr>';
             echo '<tr><td>Absenden:</td><td colspan="2"><input type="submit" value="Absenden"/></td></tr>';
 
             echo '</form>';
