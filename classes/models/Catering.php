@@ -26,7 +26,7 @@ class Catering extends Model
     {
         parent::__construct();
         if (empty($type)) {
-            $this->type = "buffet";
+            $this->type = "fingerfood";
         }
         else {
             $this->type = $this->getDbConn()->real_escape_string($type);

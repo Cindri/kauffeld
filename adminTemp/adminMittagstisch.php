@@ -40,7 +40,7 @@ if (!empty($_POST)) {
         $dbConn->query($sql);
 
         // Speisen updaten
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 14; $i++) {
             $sql = "UPDATE mittagsspeisen SET
                    title = '".$_POST['title'][$i]."', description = '".$_POST['description'][$i]."', price = '".$_POST['price'][$i]."' WHERE ID = '$i'";
             $dbConn->query($sql);
@@ -58,9 +58,9 @@ if (!empty($_POST)) {
         $dbConn->query($sql);
 
         // Speisen updaten
-        for ($i = 13; $i <= 18; $i++) {
+        for ($i = 15; $i <= 20; $i++) {
             $sql = "UPDATE mittagsspeisen SET
-                   title = '".$_POST['title'][($i-12)]."', description = '".$_POST['description'][($i-12)]."', price = '".$_POST['price'][($i-12)]."' WHERE ID = '".$i."'";
+                   title = '".$_POST['title'][($i-14)]."', description = '".$_POST['description'][($i-14)]."', price = '".$_POST['price'][($i-14)]."' WHERE ID = '".$i."'";
             $dbConn->query($sql);
         }
     }
@@ -75,7 +75,7 @@ if (!empty($_POST)) {
     <div class="wrapper">
     <h1>Mittagstische bearbeiten</h1>
         Welcher Tisch soll bearbeitet werden?<br/>
-        <a href="adminMittagstisch.php?tisch=hauptgeschaeft">Hauptgeschäft Oos</a>&nbsp;&nbsp;&nbsp;<a href="adminMittagstisch.php?tisch=rheinstrasse">Hauptgeschäft Oos</a>
+        <a href="adminMittagstisch.php?tisch=hauptgeschaeft">Hauptgeschäft Oos</a>&nbsp;&nbsp;&nbsp;<a href="adminMittagstisch.php?tisch=rheinstrasse">Rheinstrasse</a>
         <?php
         if (!empty($tisch)) {
             $sql = "SELECT ID, startDate, endDate, werbetext FROM mittagskarten WHERE geschaeft = '$tisch'";
@@ -85,7 +85,7 @@ if (!empty($_POST)) {
             $startDate = new DateTime($rowKarte->startDate);
             $endDate = new DateTime($rowKarte->endDate);
 
-            echo '<h1>Mittagskarte '.$tisch.' vom '.$startDate->format('d.m.Y').' bis '.$endDate->format("d.m.Y").'</h1>';
+            echo '<h1><span style="text-transform:capitalize">Mittagskarte '.$tisch.'</span> vom '.$startDate->format('d.m.Y').' bis '.$endDate->format("d.m.Y").'</h1>';
             echo '<form action="adminMittagstisch.php?tisch='.$tisch.'" method="POST" accept-charset="UTF-8">';
             echo 'Gültig vom <input type="text" name="startDate" value="'.$startDate->format('d.m.Y').'" /> bis zum <input type="text" name="endDate" value="'.$endDate->format('d.m.Y').'"><br/><br/>';
             echo '<table><tr><th>Wochentag</th><th>Speisen (Titel und Subline)</th><th>Preis</th></tr>';
@@ -94,7 +94,7 @@ if (!empty($_POST)) {
             $speisen = array();
 
             for ($i = 1; $i <= 12; $i++) {
-                $speisen[$i] = array('headline' => "", 'title' => "", 'descr' => "", 'price' => "");
+                $speisen[$i] = array('headline' => "", 'title' => "", 'descr' => "", 'price' => "", 'day' => "");
             }
 
             for ($i = 1; $meal = $resSpeisen->fetch_object(); $i++) {
@@ -107,13 +107,14 @@ if (!empty($_POST)) {
 
             if ($tisch == "hauptgeschaeft") {
 
-                for ($i = 1; $i <= 6; $i++) {
+                for ($i = 1; $i <= 7; $i++) {
                     $z = $i*2;
                     echo '<tr><td>' . $speisen[($z-1)]['headline'] . '<input type="hidden" name="tag['.($z-1).']" value="'.$speisen[$z-1]['day'].'"></td><td><input size="100" type="text" name="title['.($z-1).']" value="' . $speisen[($z-1)]['title'] . '"><br/><input type="text" size="100" name="description[' . ($z-1) . ']" value="' . $speisen[($z-1)]['descr'] . '"></td><td><input type="text" name="price[' . ($z-1) . ']" value="' . $speisen[($z-1)]['price'] . '"></td></tr>';
                     echo '<tr><td>' . $speisen[$z]['headline'] . '<input type="hidden" name="tag['.($z).']" value="'.$speisen[$z]['day'].'"></td><td><input size="100" type="text" name="title[' . $z . ']" value="' . $speisen[$z]['title'] . '"><br/><input type="text" size="100" name="description[' . $z . ']" value="' . $speisen[$z]['descr'] . '"/></td><td><input type="text" name="price[' . $z . ']" value="' . $speisen[$z]['price'] . '"></td></tr>';
                     echo '<tr><td colspan="3"><hr></td></tr>';
                 }
             }
+
             else {
                 for ($i = 1; $i <= 6; $i++) {
                     echo '<tr><td>' . $speisen[$i]['headline'] . '</td><td><input type="text" size="100" name="title[' . $i . ']" value="' . $speisen[$i]['title'] . '"><br/>
@@ -122,7 +123,7 @@ if (!empty($_POST)) {
                 }
             }
             echo '<tr><td>Werbetext:</td><td colspan="2"><textarea name="werbetext" cols="80" rows="6">'.$rowKarte->werbetext.'</textarea></td></tr>';
-            echo '<tr><td>Absenden:</td><td colspan="2"><input type="submit" value="Absenden"/></td></tr>';
+            echo '<tr><td>Absenden:</td><td colspan="2"><input type="submit" value="Speichern"/></td></tr>';
 
             echo '</form>';
         }

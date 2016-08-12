@@ -30,31 +30,6 @@ class Model
         return $this->locale;
     }
 
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
-
-    public function getAdText()
-    {
-        return $this->adText;
-    }
-
-    public function getValid()
-    {
-        return $this->valid;
-    }
-
-    public function setValid($valid)
-    {
-        $this->valid = $valid;
-    }
-
-    public function setAdText($adText)
-    {
-        $this->adText = $adText;
-    }
-
     // ---------------------- GETTER UND SETTER ENDE ------------------------- //
 
     public function dbDelete($table, $id) {

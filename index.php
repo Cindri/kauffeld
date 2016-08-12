@@ -8,12 +8,12 @@
 
 require_once "config.php";
 
-require_once('classes/controller.php');
-require_once('classes/model.php');
+require_once('classes/Controller.php');
+require_once('classes/Model.php');
     require_once ('classes/models/Mittagstisch.php');
     require_once ('classes/models/Catering.php');
     require_once ('classes/models/Wochenkarte.php');
-require_once('classes/view.php');
+require_once('classes/View.php');
 
 require_once "classes/FileHandler.php";
 

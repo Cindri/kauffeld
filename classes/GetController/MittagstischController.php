@@ -1,6 +1,6 @@
 <?php
 $this->view->assign("title", "Metzgerei Kauffeld - Mittagstisch");
-@$this->view->assign("headImg", "img/1_home_mittagstisch_xl.jpg");
+@$this->view->assign("headImg", "img/2_mittagstisch.jpg");
 
 $subpage = empty($this->request['subpage']) ? "" : trim($this->request['subpage']);
 

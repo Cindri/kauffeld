@@ -12,7 +12,7 @@ $headImgArray = array(
     "gerichte" => "4_warme_gerichte.jpg",
     "desserts" => "4_desserts.jpg",
     "buffet" => "4_buffet.jpg",
-    "" => "4_buffet.jpg"
+    "" => "4_fingerfood.jpg"
 );
 $this->view->assign("header", (empty($subpage) ? "Catering" : $data->subpagesArray[$subpage]));
 @$this->view->assign("title", "Catering".(empty($subpage) ? "" : " - ".$data->subpagesArray[$subpage]));
