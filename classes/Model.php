@@ -43,6 +43,18 @@ class Model
         return false;
     }
 
+    public function dbDeleteMultiple($table, $where, $value) {
+        $where = $this->dbConn->real_escape_string($where);
+        $table = $this->dbConn->real_escape_string($table);
+        $value = $this->dbConn->real_escape_string($value);
+        $sql = "DELETE FROM $table WHERE $where = '$value'";
+        $this->dbConn->query($sql);
+        if (empty($this->dbConn->error)) {
+            return true;
+        }
+        return false;
+    }
+
     public function getWholeTable($table, $sort = "ID ASC") {
         $return = array();
         $table = $this->dbConn->real_escape_string($table);

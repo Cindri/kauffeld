@@ -22,15 +22,19 @@ class Mittagstisch extends Model
         "rheinstrasse" => "Zweigstelle Rheinstraße"
     );
 
-    public function __construct($geschaeft, $date = "")
+    public function __construct($geschaeft, $date = "", $id = null)
     {
         parent::__construct();
         $this->geschaeft = $this->getDbConn()->real_escape_string($geschaeft);
-        $this->date = new DateTime();
-        $this->date->createFromFormat("Y-m-d", $date);
+        $this->date = new DateTime($date);
         $this->kalenderwoche = $this->date->format("W");
-
-        $sql = 'SELECT ID, startDate, endDate, werbetext, last_change FROM mittagskarten WHERE startDate <= \''.$this->date->format("Y-m-d").'\' AND endDate >= \''.$this->date->format("Y-m-d").'\' AND geschaeft = \''.$this->geschaeft.'\'';
+        if (!empty($id)) {
+            $this->kartenID = $this->getDbConn()->real_escape_string($id);
+            $sql = 'SELECT ID, startDate, endDate, werbetext, last_change FROM mittagskarten WHERE ID = \''.$this->kartenID.'\' AND geschaeft = \''.$this->geschaeft.'\'';
+        }
+        else {
+            $sql = 'SELECT ID, startDate, endDate, werbetext, last_change FROM mittagskarten WHERE startDate <= \''.$this->date->format("Y-m-d").'\' AND endDate >= \''.$this->date->format("Y-m-d").'\' AND geschaeft = \''.$this->geschaeft.'\'';
+        }
         if ($res = $this->getDbConn()->query($sql)) {
             if ($res->num_rows == 0) {
                 $this->error = View::errorBox("alert-warning", "Keine Karte angelegt", "Für die aktuelle Woche wurde noch keine Speisekarte angelegt. Schauen Sie bald wieder vorbei, wir tragen dies so bald wie möglich nach!");
@@ -87,6 +91,10 @@ class Mittagstisch extends Model
         return $this->endDate;
     }
 
+    public function getDate() {
+        return $this->date;
+    }
+
     public function getStartDateStr($format = "d.m.Y")
     {
         return $this->startDate->format($format);
@@ -101,7 +109,7 @@ class Mittagstisch extends Model
         return $this->error;
     }
 
-    public function getOrderedMealsList() {
+    public function getOrderedMealsList($kartenID) {
 
         $returnList = array("error" => false, "entries" => array());
         $dayWords = array(1 => "Montag", 2 => "Dienstag", 3 => "Mittwoch", 4 => "Donnerstag", 5 => "Freitag", 6 => "Samstag", 7 => "Sonntag", 99 => "");
@@ -111,8 +119,10 @@ class Mittagstisch extends Model
             return $returnList;
         }
 
-        $sql = "SELECT type, day, title, description, price FROM mittagsspeisen WHERE kartenID = '$this->kartenID' ORDER BY day ASC, type ASC";
-        $res = $this->getDbConn()->query($sql) OR die($this->getDbConn()->error);
+        $sql = "SELECT ID, type, day, title, description, price FROM mittagsspeisen WHERE kartenID = '$kartenID' ORDER BY day ASC, type ASC";
+        if(!$res = $this->getDbConn()->query($sql)) {
+            $returnList["error"] = View::errorBox("alert-danger", "SQL-Fehler beim Abfragen der Speisen", $this->getDbConn()->error);
+        }
 
         for ($i = 0; $meal = $res->fetch_object(); $i++) {
             if (empty($meal->title)) {
@@ -122,6 +132,7 @@ class Mittagstisch extends Model
             $returnList["entries"][$i]['title'] = $meal->title;
             $returnList["entries"][$i]['descr'] = $meal->description;
             $returnList["entries"][$i]['price'] = $meal->price;
+            $returnList["entries"][$i]['ID'] = $meal->ID;
         }
 
         $res->free();

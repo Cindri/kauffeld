@@ -32,6 +32,10 @@ class Login extends Model {
         return $this->ip;
     }
 
+    public function getToken() {
+        return $this->token;
+    }
+
     public function randomString($length = 6) {
         $str = "";
         $characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
@@ -44,11 +48,14 @@ class Login extends Model {
     }
 
     public function verifyToken() {
-        $sql = "SELECT time, ip FROM login WHERE token = '".$this->token."'";
-        $res = parent::getDbConn()->query($sql);
+        $sql = "SELECT ID, time, ip FROM login WHERE token = '".$this->token."'";
+        if (!$res = parent::getDbConn()->query($sql)) {
+            $this->error = "SQL-Fehler: ".parent::getDbConn()->error;
+            return false;
+        }
 
         if ($res->num_rows == 0) {
-            $this->error = "Token existiert nicht in der Datenbank.";
+            $this->error = "Token existiert nicht in der Datenbank. Bitte nicht über alte Links in der History oder über manuelle Token-Eingaben einloggen.";
             return false;
         }
 
@@ -76,6 +83,39 @@ class Login extends Model {
     }
 
     public function checkPw($pw) {
-        return hash_equals(password_hash(ADMIN_PASS, PASSWORD_BCRYPT), password_hash($pw, PASSWORD_BCRYPT));
+        if (sha1(ADMIN_PASS) == sha1($pw)) {
+            return true;
+        } else {
+            $this->error = "Das eingegebene Passwort stimmt nicht mit dem Admin-Passwort überein.";
+            return false;
+        }
+    }
+
+    public function login() {
+        $time = $this->loginTime->format("Y-m-d H:i:s");
+        $sql = "SELECT token FROM login WHERE ip = '" . $_SERVER['REMOTE_ADDR'] . "' AND TIMESTAMPDIFF(MINUTE, time, NOW()) < 60";
+        $res = parent::getDbConn()->query($sql);
+        if ($res->num_rows > 0) {
+            $row = $res->fetch_object();
+            $token = $row->token;
+            $this->updateTime($token);
+            return $token;
+        } else {
+            $token = $this->randomString(20);
+            $sql = "INSERT INTO login (time, ip, token) VALUES ('$time', '" . $_SERVER['REMOTE_ADDR'] . "', '$token')";
+            if ($this->getDbConn()->query($sql)) {
+                return $token;
+            }
+        }
+    }
+
+    public function updateTime($token) {
+        $time = $this->loginTime->format("Y-m-d H:i:s");
+        $sql = "UPDATE login SET time = '$time' WHERE token = '$token'";
+        if ($this->getDbConn()->query($sql)) {
+            return true;
+        }
+        $this->error = "Session konnte nicht erneuert werden (Timer für Logout nach einer Stunde wurde nicht zurückgesetzt).";
+        return false;
     }
 }

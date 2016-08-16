@@ -8,7 +8,7 @@
 
 require_once "config.php";
 
-require_once('classes/Controller.php');
+require_once('classes/MainController.php');
 require_once('classes/Model.php');
     require_once ('classes/models/Mittagstisch.php');
     require_once ('classes/models/Catering.php');
@@ -16,6 +16,7 @@ require_once('classes/Model.php');
 require_once('classes/View.php');
 
 require_once "classes/FileHandler.php";
+require_once "classes/Login.php";
 
 // $_GET und $_POST zusammenfasen
 $request = array_merge($_GET, $_POST);

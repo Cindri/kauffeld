@@ -43,7 +43,7 @@ if (!empty($mittagstisch)) {
         $contentView->assign("endDate", $mittagstisch->getEndDateStr());
         $contentView->assign("kw", $mittagstisch->getKalenderwoche());
 
-        $meals = $mittagstisch->getOrderedMealsList();
+        $meals = $mittagstisch->getOrderedMealsList($mittagstisch->getKartenID());
 
         if (empty($meals['error'])) {
             if (empty($meals['entries'])) {

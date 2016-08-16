@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: David
+ * Date: 12.08.2016
+ * Time: 14:32
+ */
+
+if (!empty($this->_['error'])) {
+    echo $this->errorBox("alert-danger", "Fehler beim Login", $this->_['error']);
+}
+?>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="k_content-container">
+            <form action="<?php echo BASE_URL; ?>admin" method="POST" accept-charset="UTF-8">
+                <label for="loginForm_pass">Admin-Passwort:</label>
+                <div class="input-group">
+                <span class="input-group-addon" id="addon_name"><span class="glyphicon glyphicon-check"
+                                                                      aria-hidden="true"></span></span>
+                    <input type="password" class="form-control input-lg" name="loginPass" id="loginForm_pass"
+                           placeholder="Das Admin-Passwort"
+                           value="<?php echo(!isset($this->_['contactForm_name']) ? "" : $this->_['contactForm_name']); ?>"
+                           aria-describedby="addon_name">
+                </div>
+                <input type="submit" class="btn btn-primary input-lg" name="contactForm_submit" value="Login" />
+            </form>
+        </div>
+    </div>
+</div>

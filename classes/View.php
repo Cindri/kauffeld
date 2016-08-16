@@ -18,6 +18,13 @@ class View
         $this->_[$key] = $value;
     }
 
+    public function getData($key) {
+        if (!empty($this->_[$key])) {
+            return $this->_[$key];
+        }
+        return NULL;
+    }
+
     /**
      * @param string $template
      */

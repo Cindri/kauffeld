@@ -1,0 +1,13 @@
+<?php
+if (!empty($this->_['error'])) {
+    echo View::errorBox("alert-danger", "Fehler", $this->_['error']);
+}
+?>
+
+<?php
+if (!empty($this->_['adminContent'])){
+    echo '<div class="k_admin-content">';
+    echo $this->_['adminContent'];
+    echo '</div>';
+}
+?>

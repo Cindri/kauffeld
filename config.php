@@ -19,7 +19,8 @@ $pages = array(
         "admin"
     ),
     "post" => array(
-        "postContactForm"
+        "postContactForm",
+        "postMittagstisch"
     )
 );
 
