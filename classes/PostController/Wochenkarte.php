@@ -1,5 +1,5 @@
 <?php
-$data = new Mittagstisch($this->request['geschaeft']);
+$data = new Wochenkarte();
 $tableID = $data->getDbConn()->real_escape_string($this->request['tableID']);
 
 $token = $this->request['token'];
@@ -13,8 +13,7 @@ $updateTable = array(
     'werbetext' => $werbetext
 );
 
-$data->updateTable("mittagskarten", $updateTable, $tableID);
-
+$data->updateTable("wochenkarten", $updateTable, $tableID);
 
 $titleArr = $this->request['title'];
 $descrArr = $this->request['descr'];
@@ -25,9 +24,10 @@ foreach ($titleArr as $key => $value) {
     $updateTable = array(
         'title' => $data->getDbConn()->real_escape_string($value),
         'description' => $data->getDbConn()->real_escape_string($descrArr[$key]),
-        'price' => $data->getDbConn()->real_escape_string($priceArr[$key])
+        'price' => $data->getDbConn()->real_escape_string($priceArr[$key]),
+        'unit' => $data->getDbConn()->real_escape_string($unitArr[$key])
     );
-    $data->updateTable('mittagsspeisen', $updateTable, $key);
+    $data->updateTable('wochenangebot', $updateTable, $key);
 }
 
-header("Location: " . BASE_URL . "admin/mittagstisch?token=" . $token . "&edit=" . $tableID);
+header("Location: " . BASE_URL . "admin/wochenkarte?token=" . $token . "&edit=" . $tableID);

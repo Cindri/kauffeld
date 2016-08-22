@@ -20,7 +20,9 @@ $pages = array(
     ),
     "post" => array(
         "postContactForm",
-        "postMittagstisch"
+        "postMittagstisch",
+        "postWochenkarte",
+        "postCatering"
     )
 );
 

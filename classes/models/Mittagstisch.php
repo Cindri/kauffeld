@@ -19,7 +19,7 @@ class Mittagstisch extends Model
 
     private $subpagesArray = array(
         "hauptgeschaeft" => "Hauptgeschäft Baden-Oos",
-        "rheinstrasse" => "Zweigstelle Rheinstraße"
+        "rheinstrasse" => "Filiale Rheinstraße"
     );
 
     public function __construct($geschaeft, $date = "", $id = null)
@@ -125,9 +125,11 @@ class Mittagstisch extends Model
         }
 
         for ($i = 0; $meal = $res->fetch_object(); $i++) {
+            /*
             if (empty($meal->title)) {
                 continue;
             }
+            */
             $returnList["entries"][$i]['headline'] = empty($dayWords[$meal->day]) ? $meal->type : $dayWords[$meal->day];
             $returnList["entries"][$i]['title'] = $meal->title;
             $returnList["entries"][$i]['descr'] = $meal->description;
@@ -138,4 +140,5 @@ class Mittagstisch extends Model
         $res->free();
         return $returnList;
     }
+
 }

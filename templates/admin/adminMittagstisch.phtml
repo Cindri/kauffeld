@@ -5,6 +5,7 @@ if (!empty($this->_['error'])) {
 }
 ?>
     <?php
+    $headerGeschaeft = ($this->_['geschaeft'] == "hauptgeschaeft" ? "Hauptgeschäft" : "Rheinstraße");
     if (!empty($this->_['tableList'])) {
         foreach ($this->_['tableList'] as $value) {
 
@@ -14,8 +15,9 @@ if (!empty($this->_['error'])) {
 
             echo '<div class="row" style="margin-bottom:20px;"><div class="col-lg-12"><div class="subnavi text-justify"><a href="'.BASE_URL.'admin/mittagstisch?geschaeft=hauptgeschaeft&token='.$this->_['token'].'">Hauptgeschäft</a> <a href="'.BASE_URL.'admin/mittagstisch?geschaeft=rheinstrasse&token='.$this->_['token'].'">Rheinstrasse</a></div></div></div>';
 
-            echo '<form action="'.BASE_URL.'postMittagstisch?geschaeft='.$this->_['geschaeft'].'&token='.$this->_['token'].'" method="POST">
-                    <div class="row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div><div class="col-lg-8 col-md-12"><h3 style="text-transform:capitalize; text-align:center">'.$this->_['geschaeft'].'</h3></div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div>
+            echo '<form action="'.BASE_URL.'postMittagstisch?geschaeft='.$this->_['geschaeft'].'&token='.$this->_['token'].'" method="POST"  accept-charset="UTF-8">
+                    <input type="hidden" name="tableID" value="'.$value['ID'].'" />
+                    <div class="row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div><div class="col-lg-8 col-md-12"><h3 style="text-transform:capitalize; text-align:center">'.$headerGeschaeft.'</h3></div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div>
                    <div class="row">
                     <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
                     <div class="col-lg-6 col-sm-12 k_table-overview">
@@ -68,9 +70,19 @@ if (!empty($this->_['error'])) {
 
                 }
 
-                echo '<div class="row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                echo '
+                <div class="row">
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                <div class="col-lg-8 col-md-12 k_side-bordered">
+                    <textarea class="form-control" name="werbetext['.$value['ID'].']" rows="5">'.$value['werbetext'].'</textarea>
+                </div>
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                </div>
+                ';
+
+                echo '<div class="row submit-row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
                       <div class="col-lg-8 col-md-12 k_side-bordered">
-                        <input type="submit" name="tableSubmit" value="Speichern" />
+                        <input type="submit" class="btn btn-default" name="tableSubmit" value="Speichern" />
                       </div>
                       <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div>';
             }
@@ -80,7 +92,7 @@ if (!empty($this->_['error'])) {
                     <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
                     <div class="col-lg-8 k_table-controls">
                         <a href="'.BASE_URL.'admin/mittagstisch?token='.$this->_['token'].'&geschaeft='.$this->_['geschaeft'].'&edit='.$value['ID'].'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Bearbeiten </a>&nbsp;
-                        <a href="'.BASE_URL.'admin/mittagstisch?token='.$this->_['token'].'&geschaeft='.$this->_['geschaeft'].'&delete='.$value['ID'].'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Löschen </a>&nbsp;
+                        <a href="'.BASE_URL.'admin/mittagstisch?token='.$this->_['token'].'&geschaeft='.$this->_['geschaeft'].'&delete='.$value['ID'].'" onclick="return false;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Löschen </a>&nbsp;
                         <a href="'.BASE_URL.'admin/pdf?token='.$this->_['token'].'&geschaeft='.$this->_['geschaeft'].'&card='.$value['ID'].'"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> PDF erstellen </a>&nbsp;
                         <a href="'.BASE_URL.'admin/sendNewsletter?token='.$this->_['token'].'&geschaeft='.$this->_['geschaeft'].'&card='.$value['ID'].'"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Als Newsletter versenden </a>
                     </div>

@@ -1,11 +1,14 @@
 <div class="k_gray">
     <div class="k_content-container">
-        <h2>Unser Mittagstisch (Filiale <?php echo $this->_['filiale']; ?>) <br/> <small><?php echo $this->_['startDate'] . ' - ' . $this->_['endDate']; ?>, KW <?php echo $this->_['kw']; ?></small></h2>
+        <h2><small><?php echo $this->_['startDate'] . ' - ' . $this->_['endDate']; ?>, KW <?php echo $this->_['kw']; ?></small></h2>
         <div class="table-responsive">
             <table class="table k_table">
                 <?php
                 $lastHeader = "";
                 foreach ($this->_['entries'] as $value) {
+                    if ($value['title'] == "") {
+                        continue;
+                    }
                     if ($value['headline'] != $lastHeader) {
                         echo '
                         <tr>
@@ -22,7 +25,7 @@
                             <small><?php echo $value['descr']; ?></small>
                         </td>
                         <td style="text-align:right;">
-                            <small><?php echo $value['price'] ?> €</small>
+                            <small><?php echo $value['price'] ?></small>
                         </td>
                     </tr>
                     <?php
@@ -31,7 +34,7 @@
                 if (!empty($this->_['werbetext'])) {
                     ?>
                     <tr>
-                        <td colspan="2"><?php echo $this->_['werbetext']; ?></td>
+                        <td colspan="2"><?php echo nl2br($this->_['werbetext']); ?></td>
                     </tr>
                     <?php
                 }

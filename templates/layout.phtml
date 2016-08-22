@@ -24,6 +24,16 @@ function linkActive($active, $link) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet/less" type="text/css" href="<?php echo BASE_URL; ?>less/styles.less"/>
     <script src="<?php echo BASE_URL; ?>js/less.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function klapp(id) {
+            if ($('#'+id).hasClass('hide')) {
+                $('#'+id).removeClass('hide')
+            }
+            else {
+                $('#'+id).addClass('hide');
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -108,7 +118,7 @@ if (!empty($p->_['subNavi'])) {
 
 <div class="container">
     <div class="k_footer">
-        Heinrich Kauffeld | Wurst- und Fleischwaren | Wilhelm-Drapp-Str. 14  D-76532 Baden-Baden | Telefon: 07221 - 50 46 590 | Fax: 07221 - 50 46 69 99
+        Heinrich Kauffeld | Wurst- und Fleischwaren | Wilhelm-Drapp-Str. 14 - D-76532 Baden-Baden | Telefon: 07221 - 50 46 590 | Fax: 07221 - 50 46 69 99
     </div>
 </div>
 

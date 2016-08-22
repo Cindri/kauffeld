@@ -6,18 +6,25 @@ class Wochenkarte extends Model
         parent::__construct();
     }
 
-    public function getEntries($sqlStartDate = "CURDATE()") {
+    public function getEntries($sqlStartDate = "CURDATE()", $id = "") {
         $return = array();
-        $sql = "SELECT wochenkarten.startDate, wochenkarten.endDate, wochenkarten.werbetext, wochenangebot.ID, wochenangebot.title, wochenangebot.description, wochenangebot.price, wochenangebot.unit, wochenangebot.type FROM wochenkarten RIGHT JOIN wochenangebot ON wochenkarten.ID = wochenangebot.kartenID WHERE wochenkarten.startDate <= $sqlStartDate AND wochenkarten.endDate >= $sqlStartDate ORDER BY wochenkarten.startDate DESC, wochenangebot.type ASC, wochenangebot.ID ASC";
+        if (!empty($id)) {
+            $sql = "SELECT wochenkarten.startDate, wochenkarten.endDate, wochenkarten.werbetext, wochenangebot.ID, wochenangebot.title, wochenangebot.description, wochenangebot.price, wochenangebot.unit, wochenangebot.type FROM wochenkarten RIGHT JOIN wochenangebot ON wochenkarten.ID = wochenangebot.kartenID WHERE wochenkarten.ID = '$id'";
+        }
+        else {
+            $sql = "SELECT wochenkarten.startDate, wochenkarten.endDate, wochenkarten.werbetext, wochenangebot.ID, wochenangebot.title, wochenangebot.description, wochenangebot.price, wochenangebot.unit, wochenangebot.type FROM wochenkarten RIGHT JOIN wochenangebot ON wochenkarten.ID = wochenangebot.kartenID WHERE wochenkarten.startDate <= $sqlStartDate AND wochenkarten.endDate >= $sqlStartDate ORDER BY wochenkarten.startDate DESC, wochenangebot.type ASC, wochenangebot.ID ASC";
+        }
         if (!$res = $this->getDbConn()->query($sql)) {
             $return['addData']['error'] = View::errorBox("alert-danger", "MySQL-Error", "Ein schwerwiegender Fehler beim Auslesen der Datenbank ist aufgetreten. Sollten Sie diese Nachricht nach Aktualisierung der Seite erneut bekommen, nehmen Sie bitte <a href=\"".BASE_URL."kontakt\">Kontakt</a> zu uns auf.<br/><br/>Technische Meldung für den Administrator:<br/>".$this->getDbConn()->error);
         }
         else {
             if ($res->num_rows != 0) {
                 while ($row = $res->fetch_object()) {
-                    if (empty($row->title)) {
+                    /*
+                     * if (empty($row->title)) {
                         continue;
                     }
+                    */
                     if (!isset($start)) {
                         $start = new DateTime($row->startDate);
                         $end = new DateTime($row->endDate);

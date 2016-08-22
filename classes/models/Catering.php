@@ -9,6 +9,7 @@
 class Catering extends Model
 {
     private $type;
+    private $werbetext;
 
     public $subpagesArray = array(
         "fingerfood" => "Fingerfood",
@@ -22,7 +23,7 @@ class Catering extends Model
         "buffet" => "Büffetvorschläge"
     );
 
-    public function __construct($type)
+    public function __construct($type = "")
     {
         parent::__construct();
         if (empty($type)) {
@@ -31,6 +32,10 @@ class Catering extends Model
         else {
             $this->type = $this->getDbConn()->real_escape_string($type);
         }
+
+        $w = $this->getDbConn()->query("SELECT werbetext FROM catering_meta WHERE type = '".$this->type."'");
+        $row = $w->fetch_object();
+        $this->werbetext = $row->werbetext;
     }
 
     public function getEntries($marked = true, $order = "ID ASC") {
@@ -38,7 +43,7 @@ class Catering extends Model
 
         $whereStmt = $marked ? "display = '1'" : "1";
 
-        $sql = "SELECT ID, title, description, price, unit FROM catering WHERE subpage = '".$this->type."' AND ".$whereStmt." ORDER BY ".$order;
+        $sql = "SELECT ID, display, title, description, price, unit FROM catering WHERE subpage = '".$this->type."' AND ".$whereStmt." ORDER BY ".$order;
         if (!$res = $this->getDbConn()->query($sql)) {
             $return['error'] = View::errorBox("alert-danger", "MySQL-Error", "Ein schwerwiegender Fehler beim Auslesen der Datenbank ist aufgetreten. Sollten Sie diese Nachricht nach Aktualisierung der Seite erneut bekommen, nehmen Sie bitte <a href=\"".BASE_URL."kontakt\">Kontakt</a> zu uns auf.<br/><br/>Technische Meldung für den Administrator:<br/>".$this->getDbConn()->error);
         }
@@ -49,6 +54,7 @@ class Catering extends Model
                     $return[$row->ID]['desc'] = $row->description;
                     $return[$row->ID]['price'] = $row->price;
                     $return[$row->ID]['unit'] = $row->unit;
+                    $return[$row->ID]['display'] = $row->display;
                 }
             }
             else {
@@ -56,5 +62,13 @@ class Catering extends Model
             }
         }
         return $return;
+    }
+
+    public function getType(){
+        return $this->type;
+    }
+
+    public function getWerbetext() {
+        return $this->werbetext;
     }
 }

@@ -55,6 +55,7 @@ h1 {
     padding: 0;
     color: @primary-bgColor;
     font-weight:bold;
+    text-align:center;
   }
 
   h4 {
@@ -113,6 +114,9 @@ h1 {
         font-style:italic;
       }
     }
+    .werbetext {
+      padding-left:10px;
+    }
   }
 }
 
@@ -129,8 +133,12 @@ h1 {
   top:0;
   left:10%;
   right:10%;
-  font-size:48pt;
+  font-size:32pt;
+  @media (min-width:996px) {
+    font-size:48pt;
+  }
   text-transform: uppercase;
+  text-shadow: 2px 2px 2px #000;
 }
 
 p {

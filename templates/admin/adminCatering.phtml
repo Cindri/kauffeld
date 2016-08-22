@@ -1,0 +1,67 @@
+<?php
+
+function checked($val) {
+    return empty($val) ? "" : "checked";
+}
+
+if (!empty($this->_['error'])) {
+    echo $this->_['error'];
+}
+
+if (!empty($this->_['subNavi'])) {
+    ?>
+    <div class="container">
+        <div class="subnavi text-justify" style="width:100%">
+            <?php
+            foreach ($this->_['subNavi'] as $key => $value) {
+                $active = ($this->_['subNavi_active'] == $key ? ' class="active"' : '');
+                echo '<a href="' . BASE_URL . $this->_['activeLink'] . "?type=" . $key . '&token=' . $this->_['token'] . '"' . $active . '>' . $value . '</a>';
+            }
+            ?>
+        </div>
+    </div>
+<?php }
+
+if (is_array($this->_['entries'])) {
+    echo '<form action="'.BASE_URL.'postCatering?type='.$this->_['subNavi_active'].'&token=' . $this->_['token'] . '" method="POST"  accept-charset="UTF-8">';
+    foreach ($this->_['entries'] as $key => $value) {
+        echo '<div class="row singleEntry">';
+        echo '<div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>';
+        echo '<div class="col-lg-8 col-md-12 k_side-bordered">';
+        echo '
+                    <div class="input-group input-group-sm">
+                            <span class="input-group-addon" id="edit'.$key.'-titleAddon"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Titel:</span>
+                            <input type="text" name="title['.$key.']" class="form-control" value="'.$value['title'].'" aria-describedby="edit'.$key.'-titleAddon">
+                            <span class="input-group-addon" id="edit'.$key.'-titleAddon"><input type="checkbox" '.checked($value['display']).' name="display['.$key.']" value="1" /></span>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon" id="edit'.$key.'-descAddon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Beschreibung:</span>
+                            <input type="text" name="descr['.$key.']" class="form-control" value="'.$value['descr'].'" aria-describedby="edit'.$key.'-descAddon">
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon" id="edit'.$key.'-priceAddon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Preis:</span>
+                            <input type="text" style="width:80%" name="price['.$key.']" class="form-control" value="'.$value['price'].'" aria-describedby="edit'.$key.'-priceAddon">
+                            <input type="text" style="width:20%" name="unit['.$key.']" class="form-control" value="'.$value['unit'].'" aria-describedby="edit'.$key.'-priceAddon">
+                            <span class="input-group-addon" id="edit'.$key.'-priceAddon">Einheit</span>
+                        </div>
+                        ';
+        echo '</div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div>';
+    }
+
+    echo '<div class="row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                      <div class="col-lg-8 col-md-12 k_side-bordered">
+                        <textarea type="submit" class="form-control" name="werbetext" rows="6">'.$this->_['werbetext'].'</textarea>
+                      </div>
+                      <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                      </div>';
+
+    echo '<div class="row submit-row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                      <div class="col-lg-8 col-md-12 k_side-bordered">
+                        <input type="submit" class="btn btn-default" name="tableSubmit" value="Speichern" />
+                      </div>
+                      <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                      </div>';
+    echo '</form>';
+}
+
+?>

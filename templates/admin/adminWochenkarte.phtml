@@ -1,0 +1,108 @@
+<?php
+
+if (!empty($this->_['error'])) {
+    echo $this->_['error'];
+}
+
+if (!empty($this->_['tableData'])) {
+    foreach ($this->_['tableData'] as $value) {
+
+        if (empty($value['startDate'])) {
+            continue;
+        }
+
+        ?>
+
+        <form action="<?php echo BASE_URL; ?>postWochenkarte?token=<?php echo $this->_['token']; ?>" method="POST" accept-charset="UTF-8">
+            <div class="row">
+                <input type="hidden" name="tableID" value="<?php echo $value['ID']; ?>" />
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                <div class="col-lg-6 col-sm-12 k_table-overview">
+                    <strong>Wochenkarte Nr. <?php echo $value['ID']; ?></strong><br/><br/><br>
+                </div>
+                <div class="col-lg-2 col-sm-12 k_table-overview">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="table<?php echo $value['ID']; ?>'-startDateAddon"><span
+                                class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Vom:</span>
+                        <input type="text" name="startDate[<?php echo $value['ID']; ?>]" class="form-control"
+                               placeholder="01.01.2016" value="<?php echo $value['startDate']->format("d.m.Y"); ?>"
+                               aria-describedby="table<?php echo $value['ID']; ?>-startDateAddon">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="table<?php echo $value['ID']; ?>-endDateAddon"><span
+                                class="glyphicon glyphicon-calendar" aria-hidden="true"></span> &nbsp;&nbsp;Bis:</span>
+                        <input type="text" name="endDate[<?php echo $value['ID']; ?>]" class="form-control"
+                               placeholder="01.01.2016" value="<?php echo $value['endDate']->format("d.m.Y"); ?>"
+                               aria-describedby="table<?php echo $value['ID']; ?>-endDateAddon">
+                    </div>
+                </div>
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
+                </div>
+            </div>
+            <?php
+            if (!empty($this->_['editTable'])) {
+                $lastHeader = "";
+
+                foreach ($this->_['editTable'] as $key => $value2) {
+
+                    echo '<div class="row singleEntry">';
+                    if ($value2['type'] != $lastHeader) {
+                        echo '<div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div><div class="col-lg-8 col-md-12 k_side-bordered"><h4>'.$value2['type'].'</h4></div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div><div class="row singleEntry">';
+                        $lastHeader = $value2['type'];
+                    }
+
+                    echo '<div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>';
+                    echo '<div class="col-lg-8 col-md-12 k_side-bordered">';
+                    echo '
+                    <div class="input-group input-group-sm">
+                            <span class="input-group-addon" id="edit'.$value2['ID'].'-titleAddon"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Titel:</span>
+                            <input type="text" name="title['.$value2['ID'].']" class="form-control" value="'.$value2['title'].'" aria-describedby="edit'.$value2['ID'].'-titleAddon">
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon" id="edit'.$value2['ID'].'-descAddon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Beschreibung:</span>
+                            <input type="text" name="descr['.$value2['ID'].']" class="form-control" value="'.$value2['descr'].'" aria-describedby="edit'.$value2['ID'].'-descAddon">
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon" id="edit'.$value2['ID'].'-priceAddon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Preis:</span>
+                            <input type="text" style="width:80%" name="price['.$value2['ID'].']" class="form-control" value="'.$value2['price'].'" aria-describedby="edit'.$value2['ID'].'-priceAddon">
+                            <input type="text" style="width:20%" name="unit['.$value2['ID'].']" class="form-control" value="'.$value2['unit'].'" aria-describedby="edit'.$value2['ID'].'-priceAddon">
+                            <span class="input-group-addon" id="edit'.$value2['ID'].'-priceAddon">Einheit</span>
+                        </div>
+                        ';
+                    echo '</div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div>';
+
+                }
+
+                echo '
+                <div class="row">
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                <div class="col-lg-8 col-md-12 k_side-bordered">
+                    <textarea class="form-control" name="werbetext['.$value['ID'].']" rows="5">'.$value['werbetext'].'</textarea>
+                </div>
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                </div>
+                ';
+                echo '<div class="row submit-row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                      <div class="col-lg-8 col-md-12 k_side-bordered">
+                        <input type="submit" class="btn btn-default" name="tableSubmit" value="Speichern" />
+                      </div>
+                      <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                      </div>';
+            }
+            ?>
+            <div class="row">
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+                <div class="col-lg-8 k_table-controls">
+                    <a href="<?php echo BASE_URL; ?>admin/wochenkarte?token=<?php echo $this->_['token']; ?>&edit=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Bearbeiten </a>&nbsp;
+                    <a href="<?php echo BASE_URL; ?>admin/wochenkarte?token=<?php echo $this->_['token']; ?>&delete=<?php echo $value['ID']; ?>" onclick="return false;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Löschen </a>&nbsp;
+                    <a href="<?php echo BASE_URL; ?>admin/pdf?token=<?php echo $this->_['token']; ?>&card=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> PDF erstellen </a>&nbsp;
+                    <a href="<?php echo BASE_URL; ?>admin/sendNewsletter?token=<?php echo $this->_['token']; ?>&card=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Als Newsletter versenden </a>
+                </div>
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+            </div>
+        </form>
+
+<?php
+    } // foreach alle Tische
+} // If (wenn Tische da)
+?>

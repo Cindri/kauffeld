@@ -55,6 +55,32 @@ class Model
         return false;
     }
 
+    public function updateTable($table, Array $data, $id) {
+        $sql = "SHOW COLUMNS FROM $table";
+        $tableInfo = $this->dbConn->query($sql);
+        while ($row = $tableInfo->fetch_object()) {
+            if ($row->Field == "ID") {
+                continue;
+            }
+            $fields[] = $row->Field;
+        }
+
+        $updateStr = "";
+        foreach ($data as $key => $value) {
+            if (!in_array($key, $fields)) {
+                return false;
+            }
+            $updateStr .= "$key = '$value',";
+        }
+        $updateStr = substr($updateStr, 0, -1);
+
+        $sql = "UPDATE $table SET ".$updateStr." WHERE ID = '$id'";
+        if (!$this->dbConn->query($sql)) {
+            return false;
+        }
+        return true;
+    }
+
     public function getWholeTable($table, $sort = "ID ASC") {
         $return = array();
         $table = $this->dbConn->real_escape_string($table);

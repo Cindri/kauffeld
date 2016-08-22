@@ -5,6 +5,5 @@ $this->view->assign("hideNavi", true);
 
 $contentView = new View();
 $contentView->setTemplate("home");
-$contentView->assign("adText", "blabla Ad-Text");
 
 $this->view->assign("pageContent", $contentView->loadTemplate());

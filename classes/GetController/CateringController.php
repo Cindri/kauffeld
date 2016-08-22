@@ -14,10 +14,10 @@ $headImgArray = array(
     "buffet" => "4_buffet.jpg",
     "" => "4_fingerfood.jpg"
 );
-$this->view->assign("header", (empty($subpage) ? "Catering" : $data->subpagesArray[$subpage]));
+$this->view->assign("header", (empty($subpage) ? "Fingerfood" : $data->subpagesArray[$subpage]));
 @$this->view->assign("title", "Catering".(empty($subpage) ? "" : " - ".$data->subpagesArray[$subpage]));
 @$this->view->assign("headImg", "img/".$headImgArray[$subpage]);
-@$this->view->assign("subNavi_active", $subpage);
+@$this->view->assign("subNavi_active", (empty($subpage) ? "fingerfood" : $data->subpagesArray[$subpage]));
 $this->view->assign("subNavi", $data->subpagesArray);
 
 $pageContent = new View();
@@ -28,6 +28,7 @@ if (!empty($entries['error'])) {
 }
 else {
     $pageContent->assign("entries", $entries);
+    $pageContent->assign("werbetext", $data->getWerbetext());
 
     $pageContent->setTemplate("catering");
     $pageContent->setTmplExt(".phtml");

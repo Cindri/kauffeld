@@ -79,7 +79,7 @@ class Controller
 
                     $subpagesArray = array(
                         "mittagstisch?token=".$getToken => "Mittagstische bearbeiten",
-                        "wochenkarte?token=".$getToken => "Wochenkarten bearbeiten",
+                        "wochenkarte?token=".$getToken => "Wochenkarte bearbeiten",
                         "catering?token=".$getToken => "Catering bearbeiten"
                     );
 
@@ -128,24 +128,16 @@ class Controller
                                     break;
 
                                 case "wochenkarte":
-                                    $this->view->assign("activeLink", $this->page);
-                                    $this->view->assign("title", "Metzgerei Kauffeld - Admin Wochenkarten");
-                                    $this->view->assign("header", "Administration - Wochenkarten");
-                                    // KEINE Post-Verarbeitung hier! POST-Requests gehen mit Token-Überprüfung an einen Post-Controller, der mit header weiterleitet!
-                                    $adminSubpageContent = "Hallo ich bin Testcontent für die Wochenkarte";
+                                    include "classes/AdminController/WochenkarteAdminController.php";
                                     break;
+
                                 case "catering":
-                                    $this->view->assign("activeLink", $this->page);
-                                    $this->view->assign("title", "Metzgerei Kauffeld - Admin Catering");
-                                    $this->view->assign("header", "Administration - Catering");
-                                    // KEINE Post-Verarbeitung hier! POST-Requests gehen mit Token-Überprüfung an einen Post-Controller, der mit header weiterleitet!
-                                    $adminSubpageContent = "Hallo ich bin Testcontent für das Catering";
+                                    include "classes/AdminController/CateringAdminController.php";
                                     break;
                                 default:
                                     $adminSubpageContent = "";
                             }
                             $adminView->assign("adminContent", $adminSubpageContent);
-                            $adminView->assign("token", $login->getToken());
                         }
                     }
 
@@ -169,6 +161,14 @@ class Controller
                     include "classes/PostController/Mittagstisch.php";
                     return null;
                     break;
+                case "postWochenkarte":
+                    include "classes/PostController/Wochenkarte.php";
+                    return null;
+                    break;
+                case "postCatering":
+                    include "classes/PostController/Catering.php";
+                    return null;
+
             }
         } else {
             $this->view->assign("page", $this->page);

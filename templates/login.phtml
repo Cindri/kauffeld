@@ -11,7 +11,8 @@ if (!empty($this->_['error'])) {
 }
 ?>
 <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <div class="k_content-container">
             <form action="<?php echo BASE_URL; ?>admin" method="POST" accept-charset="UTF-8">
                 <label for="loginForm_pass">Admin-Passwort:</label>
@@ -23,8 +24,9 @@ if (!empty($this->_['error'])) {
                            value="<?php echo(!isset($this->_['contactForm_name']) ? "" : $this->_['contactForm_name']); ?>"
                            aria-describedby="addon_name">
                 </div>
-                <input type="submit" class="btn btn-primary input-lg" name="contactForm_submit" value="Login" />
+                <input type="submit" class="btn btn-primary input-lg" style="width:100%;" name="contactForm_submit" value="Login" />
             </form>
         </div>
     </div>
+    <div class="col-lg-3 hidden-md hidden-sm hidden-xs"></div>
 </div>

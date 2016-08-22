@@ -2,14 +2,17 @@
 $wochenangebotData = $this->_['entries'];
 $werbetext = $wochenangebotData['addData']['werbetext'];
 ?>
-<div class="k_gray">
+<div class="k_gray" xmlns="http://www.w3.org/1999/html">
     <div class="k_content-container">
-        <h2>Unser Wochenangebot<br/> <?php echo $wochenangebotData['addData']['start'] . ' - ' . $wochenangebotData['addData']['end']; ?></h2>
+        <h2><small><?php echo $wochenangebotData['addData']['start'] . ' - ' . $wochenangebotData['addData']['end']; ?></small></h2>
         <div class="table-responsive">
             <table class="table k_table">
                 <?php
                 $lastType = "";
                 foreach ($wochenangebotData['entries'] as $value) {
+                    if ($value['title'] == "") {
+                        continue;
+                    }
                     if ($value['type'] != $lastType && $lastType != "") {
                         echo '
                         <tr>
@@ -35,7 +38,7 @@ $werbetext = $wochenangebotData['addData']['werbetext'];
                 if (!empty($werbetext)) {
                     ?>
                     <tr>
-                        <td colspan="2"><?php echo $werbetext; ?></td>
+                        <td colspan="2"><?php echo nl2br($werbetext); ?></td>
                     </tr>
                 <?php
                 }
