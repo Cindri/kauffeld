@@ -22,10 +22,10 @@ $unitArr = $this->request['unit'];
 
 foreach ($titleArr as $key => $value) {
     $updateTable = array(
-        'title' => $data->getDbConn()->real_escape_string($value),
-        'description' => $data->getDbConn()->real_escape_string($descrArr[$key]),
-        'price' => $data->getDbConn()->real_escape_string($priceArr[$key]),
-        'unit' => $data->getDbConn()->real_escape_string($unitArr[$key])
+        'title' => $value,
+        'description' => $descrArr[$key],
+        'price' => $priceArr[$key],
+        'unit' => $unitArr[$key]
     );
     $data->updateTable('wochenangebot', $updateTable, $key);
 }

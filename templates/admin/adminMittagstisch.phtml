@@ -1,5 +1,6 @@
 
 <?php
+
 if (!empty($this->_['error'])) {
     echo $this->_['error'];
 }
@@ -8,7 +9,6 @@ if (!empty($this->_['error'])) {
     $headerGeschaeft = ($this->_['geschaeft'] == "hauptgeschaeft" ? "Hauptgeschäft" : "Rheinstraße");
     if (!empty($this->_['tableList'])) {
         foreach ($this->_['tableList'] as $value) {
-
             if (empty($value['startDate'])) {
                 continue;
             }
@@ -42,7 +42,7 @@ if (!empty($this->_['error'])) {
                 $lastHeader = "";
 
                 foreach ($this->_['editMeals'] as $key => $value2) {
-
+                    array_walk($value2, 'htmlCallback');
                     echo '<div class="row singleEntry">';
                     if ($value2['headline'] != $lastHeader) {
                         echo '<div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div><div class="col-lg-8 col-md-12 k_side-bordered"><h4>'.$value2['headline'].'</h4></div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div><div class="row singleEntry">';
@@ -53,7 +53,7 @@ if (!empty($this->_['error'])) {
                     echo '<div class="col-lg-8 col-md-12 k_side-bordered">';
                     echo '
                     <div class="input-group input-group-sm">
-                            <span class="input-group-addon" id="edit'.$value2['title'].'-titleAddon"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Titel:</span>
+                            <span class="input-group-addon" id="edit'.$value2['ID'].'-titleAddon"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Titel:</span>
                             <input type="text" name="title['.$value2['ID'].']" class="form-control" value="'.$value2['title'].'" aria-describedby="edit'.$value2['ID'].'-titleAddon">
                         </div>
                         <div class="input-group input-group-sm">

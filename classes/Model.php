@@ -70,9 +70,10 @@ class Model
             if (!in_array($key, $fields)) {
                 return false;
             }
-            $updateStr .= "$key = '$value',";
+            $updateStr .= "$key = '".$this->dbConn->real_escape_string($value)."',";
         }
         $updateStr = substr($updateStr, 0, -1);
+
 
         $sql = "UPDATE $table SET ".$updateStr." WHERE ID = '$id'";
         if (!$this->dbConn->query($sql)) {

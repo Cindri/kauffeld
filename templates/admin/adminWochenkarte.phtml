@@ -44,7 +44,7 @@ if (!empty($this->_['tableData'])) {
                 $lastHeader = "";
 
                 foreach ($this->_['editTable'] as $key => $value2) {
-
+                    array_walk($value2, 'htmlCallback');
                     echo '<div class="row singleEntry">';
                     if ($value2['type'] != $lastHeader) {
                         echo '<div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div><div class="col-lg-8 col-md-12 k_side-bordered"><h4>'.$value2['type'].'</h4></div><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div></div><div class="row singleEntry">';

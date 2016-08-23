@@ -23,9 +23,9 @@ $unitArr = $this->request['unit'];
 
 foreach ($titleArr as $key => $value) {
     $updateTable = array(
-        'title' => $data->getDbConn()->real_escape_string($value),
-        'description' => $data->getDbConn()->real_escape_string($descrArr[$key]),
-        'price' => $data->getDbConn()->real_escape_string($priceArr[$key])
+        'title' => $value,
+        'description' => $descrArr[$key],
+        'price' => $priceArr[$key]
     );
     $data->updateTable('mittagsspeisen', $updateTable, $key);
 }

@@ -18,6 +18,10 @@ require_once('classes/View.php');
 require_once "classes/FileHandler.php";
 require_once "classes/Login.php";
 
+function htmlCallback(&$item) {
+    $item = htmlspecialchars($item);
+}
+
 // $_GET und $_POST zusammenfasen
 $request = array_merge($_GET, $_POST);
 // Controller erstellen
