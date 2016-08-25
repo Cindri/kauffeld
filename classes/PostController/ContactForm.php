@@ -39,7 +39,7 @@ else {
         }
 
         // Everything is fine, start email delivery
-        $empfaenger = 'davidpeter1337@gmail.com';
+        $empfaenger = CONTACT_MAIL;
         $betreff = trim(substr($this->request['contactForm_subject'], 0, 255));
         $nachricht = wordwrap($this->request['contactForm_msg'], 75);
         $header = 'From: kontakt@metzgerei-kauffeld.de' . "\r\n" .
