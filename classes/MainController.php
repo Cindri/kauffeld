@@ -64,6 +64,9 @@ class Controller
                 case "wirueberuns":
                     include "classes/GetController/WirueberunsController.php";
                     break;
+                case "newsletter":
+                    include "classes/GetController/NewsletterController.php";
+                    break;
             }
             return $this->view->loadTemplate();
         } else if (in_array($this->page, $GLOBALS['pages']['admin'])) {

@@ -1,0 +1,42 @@
+<?php
+?>
+<div class="k_gray">
+    <div class="k_content-container">
+        <h2>Menükarten-Abo</h2>
+        Sehr geehrte Kunden,<br/>
+        hier können Sie sich in den Mail- und Faxverteiler für unsere Mittagskarten und unser Wochenangebot eintragen. Sie können einzeln auswählen, welche der Angebote Sie erhalten möchten. Weiterhin können Sie sich jederzeit mit einem Klick wieder austragen.
+
+        <div>
+            <form action="<?php echo BASE_URL; ?>NewsletterRegister" method="POST" accept-charset="UTF-8">
+                <label for="name"></label>
+                <div class="input-group">
+                    <input type="text" class="form-control input-lg" name="name" placeholder="Ihr Name" aria-describedby="addon_name">
+                </div>
+                <label for="adresse"></label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="addon_str">Str./Nr.</span>
+                    <input type="text" class="form-control input-lg" name="adresse" placeholder="Straße, Hausnummer" aria-describedby="addon_str">
+                    <input type="text" class="form-control input-lg" name="stadt" placeholder="PLZ, Stadt" aria-describedby="addon_plz">
+                    <span class="input-group-addon" id="addon_plz">PLZ, Stadt.</span>
+                </div>
+                <label for="email"></label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="addon_email">E-Mail</span>
+                    <input type="text" class="form-control input-lg" name="email" placeholder="E-Mail-Adresse" aria-describedby="addon_email">
+                </div>
+                <label for="fax"></label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="addon_fax">Fax</span>
+                    <input type="text" class="form-control input-lg" name="fax" placeholder="Fax-Nummer" aria-describedby="addon_fax">
+                </div>
+                <label for="auswahl"></label>
+                <div>
+                    <label class="checkbox-inline"><input type="checkbox" name="wochenkarte" value="1">Wochenangebot</label>
+                    <label class="checkbox-inline"><input type="checkbox" name="hauptgeschaeft" value="1">Mittagskarte Hauptgeschäft</label>
+                    <label class="checkbox-inline"><input type="checkbox" name="rheinstrasse" value="1">Mittagskarte Rheinstrasse</label>
+                </div>
+                <input type="submit" value="Registrieren" class="btn btn-primary input-lg" />
+            </form>
+        </div>
+    </div>
+</div>
