@@ -10,6 +10,7 @@ $descrArr = $this->request['descr'];
 $priceArr = $this->request['price'];
 $unitArr = $this->request['unit'];
 $displayArr = $this->request['display'];
+$displayPDFArr = $this->request['displayPDF'];
 
 foreach ($titleArr as $key => $value) {
     $updateTable = array(
@@ -17,7 +18,8 @@ foreach ($titleArr as $key => $value) {
         'description' => $descrArr[$key],
         'price' => $priceArr[$key],
         'unit' => $unitArr[$key],
-        'display' => $displayArr[$key]
+        'display' => $displayArr[$key],
+        'displayPDF' => $displayPDFArr[$key]
     );
     $data->updateTable('catering', $updateTable, $key);
 }

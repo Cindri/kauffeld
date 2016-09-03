@@ -9,6 +9,7 @@ switch($subpage) {
     case "baden-oos":
     case "oos":
     case "":
+        $p = PDF_new();
         $mittagstisch = new Mittagstisch("hauptgeschaeft");
         $this->view->assign("header", "Mittagstisch Hauptgeschäft");
         @$this->view->assign("subNavi_active", "hauptgeschaeft");

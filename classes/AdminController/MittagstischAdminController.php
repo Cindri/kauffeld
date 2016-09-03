@@ -9,7 +9,65 @@ if (!empty($this->request['delete'])) {
     $data->dbDelete("mittagskarten", $this->request['delete']);
     $data->dbDeleteMultiple("mittagsspeisen", "kartenID", $this->request['delete']);
 }
+
+
 $reqGeschaeft = empty($this->request['geschaeft']) ? "hauptgeschaeft" : $this->request['geschaeft'];
+
+// Neue Karte anlegen, falls gewünscht
+if (!empty($this->request['create'])) {
+
+    $createCols = array(
+        'startDate' => '1990-01-01',
+        'endDate' => '1990-01-02',
+        'geschaeft' => $reqGeschaeft
+    );
+
+    if (intval($insertId = $data->createTable("mittagskarten", $createCols)) == 0) {
+        $adminSubpage->assign("error", View::errorBox("alert-danger", "Fehler beim Erstellen der Karten."));
+    } else {
+
+        for ($i = 1; $i <= 10; $i++) {
+            // Mo - Fr erzeugen
+            $createCols = array(
+                'kartenID' => $insertId,
+                'type' => 'Angebot',
+                'day' => $i/2
+            );
+            if (intval($data->createTable("mittagsspeisen", $createCols)) == 0) {
+                $adminSubpage->assign("error", View::errorBox("alert-danger", "Fehler beim Erstellen der Speisen der Karte #$insertId."));
+            }
+        }
+
+        // Samstag, Dessert und Suppe erzeugen
+        $createCols = array(
+            'kartenID' => $insertId,
+            'type' => 'Angebot',
+            'day' => 6
+        );
+        if (intval($data->createTable("mittagsspeisen", $createCols)) == 0) {
+            $adminSubpage->assign("error", View::errorBox("alert-danger", "Fehler beim Erstellen der Speisen der Karte #$insertId."));
+        }
+
+        $createCols = array(
+            'kartenID' => $insertId,
+            'type' => 'Suppe der Woche',
+            'day' => '99'
+        );
+        if (intval($data->createTable("mittagsspeisen", $createCols)) == 0) {
+            $adminSubpage->assign("error", View::errorBox("alert-danger", "Fehler beim Erstellen der Speisen der Karte #$insertId."));
+        }
+
+        $createCols = array(
+            'kartenID' => $insertId,
+            'type' => 'Dessert der Woche',
+            'day' => '99'
+        );
+        if (intval($data->createTable("mittagsspeisen", $createCols)) == 0) {
+            $adminSubpage->assign("error", View::errorBox("alert-danger", "Fehler beim Erstellen der Speisen der Karte #$insertId."));
+        }
+
+    }
+}
 
 // Zur Übersicht erst alle Karten (Tische) holen
 $allTableData = $data->getWholeTable("mittagskarten", "startDate DESC");

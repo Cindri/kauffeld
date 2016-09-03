@@ -40,7 +40,7 @@ if (!empty($this->_['tableData'])) {
                 </div>
             </div>
             <?php
-            if (!empty($this->_['editTable'])) {
+            if (!empty($this->_['editTable']) && $this->_['editID'] == $value['ID']) {
                 $lastHeader = "";
 
                 foreach ($this->_['editTable'] as $key => $value2) {
@@ -94,9 +94,9 @@ if (!empty($this->_['tableData'])) {
                 <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
                 <div class="col-lg-8 k_table-controls">
                     <a href="<?php echo BASE_URL; ?>admin/wochenkarte?token=<?php echo $this->_['token']; ?>&edit=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Bearbeiten </a>&nbsp;
-                    <a href="<?php echo BASE_URL; ?>admin/wochenkarte?token=<?php echo $this->_['token']; ?>&delete=<?php echo $value['ID']; ?>" onclick="return false;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Löschen </a>&nbsp;
-                    <a href="<?php echo BASE_URL; ?>admin/pdf?token=<?php echo $this->_['token']; ?>&card=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> PDF erstellen </a>&nbsp;
-                    <a href="<?php echo BASE_URL; ?>admin/sendNewsletter?token=<?php echo $this->_['token']; ?>&card=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Als Newsletter versenden </a>
+                    <a href="<?php echo BASE_URL; ?>admin/wochenkarte?token=<?php echo $this->_['token']; ?>&delete=<?php echo $value['ID']; ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Löschen </a>&nbsp;
+                    <a href="http://extern.panten.de/kauffeld/pdfController.php?key=seftgojktruh89ui2jn2l1iu3z894&token=<?php echo $this->_['token']; ?>&page=wochenkarte&card=<?php echo $value['ID']; ?>" target="_blank"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> PDF erstellen </a>&nbsp;
+                    <!-- <a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?type=wochenkarte&cardID=<?php echo $value['ID']; ?>&key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv" target="_blank"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Als Newsletter versenden </a> -->
                 </div>
                 <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
             </div>
@@ -105,4 +105,14 @@ if (!empty($this->_['tableData'])) {
 <?php
     } // foreach alle Tische
 } // If (wenn Tische da)
+
+echo '
+    <div class="row">
+        <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+        <div class="col-lg-8">
+            <a href="'.BASE_URL.'admin/wochenkarte?token='.$this->_['token'].'&create=1"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>Neue leere Karte anlegen</a>
+        </div>
+        <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+    </div>
+    ';
 ?>

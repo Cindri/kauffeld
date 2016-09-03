@@ -82,6 +82,23 @@ class Model
         return true;
     }
 
+    public function createTable($table, Array $fields) {
+        $table = $this->dbConn->real_escape_string($table);
+        $sql = "INSERT INTO $table (";
+        $fieldList = [];
+        $valueList = [];
+        foreach ($fields as $key => $value) {
+            $fieldList[] = $key;
+            $valueList[] = "'".$value."'";
+        }
+        $sql .= implode(",", $fieldList) . ") VALUES (" . implode(",", $valueList) . ")";
+
+        if ($this->dbConn->query($sql)) {
+            return $this->dbConn->insert_id;
+        }
+        return $this->dbConn->error;
+    }
+
     public function getWholeTable($table, $sort = "ID ASC") {
         $return = array();
         $table = $this->dbConn->real_escape_string($table);

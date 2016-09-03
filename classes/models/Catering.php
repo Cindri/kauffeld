@@ -43,7 +43,7 @@ class Catering extends Model
 
         $whereStmt = $marked ? "display = '1'" : "1";
 
-        $sql = "SELECT ID, display, title, description, price, unit FROM catering WHERE subpage = '".$this->type."' AND ".$whereStmt." ORDER BY ".$order;
+        $sql = "SELECT ID, display, title, description, price, unit, displayPDF FROM catering WHERE subpage = '".$this->type."' AND ".$whereStmt." ORDER BY ".$order;
         if (!$res = $this->getDbConn()->query($sql)) {
             $return['error'] = View::errorBox("alert-danger", "MySQL-Error", "Ein schwerwiegender Fehler beim Auslesen der Datenbank ist aufgetreten. Sollten Sie diese Nachricht nach Aktualisierung der Seite erneut bekommen, nehmen Sie bitte <a href=\"".BASE_URL."kontakt\">Kontakt</a> zu uns auf.<br/><br/>Technische Meldung für den Administrator:<br/>".$this->getDbConn()->error);
         }
@@ -55,6 +55,7 @@ class Catering extends Model
                     $return[$row->ID]['price'] = $row->price;
                     $return[$row->ID]['unit'] = $row->unit;
                     $return[$row->ID]['display'] = $row->display;
+                    $return[$row->ID]['displayPDF'] = $row->displayPDF;
                 }
             }
             else {

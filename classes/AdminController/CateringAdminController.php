@@ -27,6 +27,7 @@ else {
         $cateringMeals[$key]['price'] = $value['price'];
         $cateringMeals[$key]['display'] = $value['display'];
         $cateringMeals[$key]['unit'] = $value['unit'];
+        $cateringMeals[$key]['displayPDF'] = $value['displayPDF'];
     }
     $adminSubpage->assign("entries", $cateringMeals);
     $adminSubpage->assign("type", $cateringType);

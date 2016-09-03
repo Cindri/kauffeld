@@ -33,7 +33,7 @@ if (is_array($this->_['entries'])) {
                     <div class="input-group input-group-sm">
                             <span class="input-group-addon" id="edit'.$key.'-titleAddon"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Titel:</span>
                             <input type="text" name="title['.$key.']" class="form-control" value="'.$value['title'].'" aria-describedby="edit'.$key.'-titleAddon">
-                            <span class="input-group-addon" id="edit'.$key.'-titleAddon"><input type="checkbox" '.checked($value['display']).' name="display['.$key.']" value="1" /></span>
+                            <span class="input-group-addon" id="edit'.$key.'-titleAddon">Web <input type="checkbox" '.checked($value['display']).' name="display['.$key.']" value="1" /> | <input type="checkbox" '.checked($value['displayPDF']).' name="displayPDF['.$key.']" value="1" /> PDF </span>
                         </div>
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon" id="edit'.$key.'-descAddon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Beschreibung:</span>
@@ -63,6 +63,11 @@ if (is_array($this->_['entries'])) {
                       <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
                       </div>';
     echo '</form>';
+    echo '  <div class="row submit-row"><div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
+            <div class="col-lg-8 col-md-12 k_side-bordered">
+                <a href="http://extern.panten.de/kauffeld/pdfController.php?key=seftgojktruh89ui2jn2l1iu3z894&page=catering&subpage='.$this->_['subNavi_active'].'" target="_blank">Als aktiv markierte Speisen als PDF</a><br/>
+            </div>
+            <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>';
 }
 
 ?>
