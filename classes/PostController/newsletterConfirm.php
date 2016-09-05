@@ -1,0 +1,11 @@
+<?php
+$data = new Model();
+$id = $data->getDbConn()->real_escape_string(base64_decode($_GET['code']));
+
+$sql = "UPDATE newsletter SET confirmed = '1' WHERE ID = '$id'";
+if ($data->getDbConn()->query($sql)) {
+    header("Location: http://metzgerei-kauffeld.de/kontakt?externalMsg=newsletterConfirmed");
+} else {
+    header("Location: http://metzgerei-kauffeld.de/kontakt?externalMsg=newsletterConfirmed");
+}
+

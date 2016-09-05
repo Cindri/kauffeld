@@ -151,6 +151,7 @@ while ($row = $result->fetch_assoc())
 }
 
 $mailempf[] = "d.peter@panten.de";
+$mailempf = [];
 
 
 // Alle Empfänger ausgewählt. Starte den Versand jetzt.
@@ -193,8 +194,12 @@ foreach ($mailempf as $value) {
 
 $sql = "SELECT `fax` FROM `newsletter` WHERE `confirmed` = '1' AND `fax` != '' AND ".$addWhere;
 $result = $mysqli->query($sql);
+$counter = 0;
 while ($row = $result->fetch_object()) {
     $faxempf .= $row->fax."\n";
+    $counter++;
 }
 
 require_once("sendPDFToRecipientList.php");
+
+echo $counter;

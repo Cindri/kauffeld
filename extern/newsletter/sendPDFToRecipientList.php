@@ -54,6 +54,7 @@ try {
 } catch (MaintenanceException $e) {
 	echo 'Wartungsarbeiten am API-Endpunkt: '.$e->getMessage();
 } catch (LimitExceededException $e) {
+	echo 'Es ist dieser Fehler: <br/>';
 	echo $e->getMessage();
 } catch (SoapFault $e) {
 	echo 'SoapFault: '.$e->getMessage();

@@ -9,7 +9,6 @@ switch($subpage) {
     case "baden-oos":
     case "oos":
     case "":
-        $p = PDF_new();
         $mittagstisch = new Mittagstisch("hauptgeschaeft");
         $this->view->assign("header", "Mittagstisch Hauptgeschäft");
         @$this->view->assign("subNavi_active", "hauptgeschaeft");
@@ -59,6 +58,6 @@ if (!empty($mittagstisch)) {
         }
     }
 }
-
+$pageContent .= '<div class="container" style="margin-top:20px;">Hier können Sie sich am Verteiler für die Mittagsmenüs und der Wochenkarte anmelden:<br/><a href="'.BASE_URL.'newsletter">Zur Anmeldung</a></div>';
 // Content in eine Variable laden
 $this->view->assign("pageContent", $pageContent);

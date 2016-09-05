@@ -13,7 +13,8 @@ $pages = array(
         "aktuelles",
         "wirueberuns",
         "kontakt",
-        "impressum"
+        "impressum",
+        "newsletter"
     ),
     "admin" => array(
         "admin"
@@ -22,7 +23,9 @@ $pages = array(
         "postContactForm",
         "postMittagstisch",
         "postWochenkarte",
-        "postCatering"
+        "postCatering",
+        "NewsletterRegister",
+        "newsletterConfirm"
     )
 );
 

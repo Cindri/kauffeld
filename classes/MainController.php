@@ -12,15 +12,22 @@ class Controller
     private $page = '';
     private $view = null;
 
-
-    // ------ VERY IMPORTANT: ALL ALLOWED PATHS ARE SAVED HERE
-
     public function __construct($request)
     {
         $this->request = $request;
         $temp_tmpl = !empty($request['view']) ? $request['view'] : 'home';
         $this->page = trim(str_replace("/", "", $temp_tmpl));
         $this->view = new View();
+        if (!empty($_GET['externalMsg'])) {
+            switch ($_GET['externalMsg']) {
+                case "newsletterConfirmed":
+                    $this->view->assign("error", $this->view->errorBox("alert-success", "Vielen Dank für Ihre Anmeldung!", "Ihre Anmeldung wurde erfolgreich bestätigt. Sie sind nun in den Verteilerlisten der Metzgerei Kauffeld eingetragen!"));
+                    break;
+                default:
+                    echo "";
+                    break;
+            }
+        }
     }
 
     public function display()
@@ -171,7 +178,14 @@ class Controller
                 case "postCatering":
                     include "classes/PostController/Catering.php";
                     return null;
-
+                case "NewsletterRegister":
+                    include "classes/PostController/NewsletterRegister.php";
+                    return $this->view->loadTemplate();
+                    break;
+                case "newsletterConfirm":
+                    include "classes/PostController/NewsletterConfirm.php";
+                    return null;
+                    break;
             }
         } else {
             $this->view->assign("page", $this->page);

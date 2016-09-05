@@ -17,7 +17,8 @@ else {
 
     $pageContent->setTemplate("wochenangebot");
     $pageContent->setTmplExt(".phtml");
+
     $finalContent = $pageContent->loadTemplate();
 }
-
+$finalContent .= '<div class="container" style="margin-top:20px;">Hier können Sie sich am Verteiler für die Mittagsmenüs und der Wochenkarte anmelden:<br/><a href="'.BASE_URL.'newsletter">Zur Anmeldung</a></div>';
 $this->view->assign("pageContent", $finalContent);
