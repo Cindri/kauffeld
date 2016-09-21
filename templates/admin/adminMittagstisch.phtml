@@ -16,12 +16,15 @@ if (!empty($this->_['tableList'])) {
             }
 
 
-            echo '<form action="'.BASE_URL.'postMittagstisch?geschaeft='.$this->_['geschaeft'].'&token='.$this->_['token'].'" method="POST"  accept-charset="UTF-8">
-                    <input type="hidden" name="tableID" value="'.$value['ID'].'" />
+            echo '<form action="'.BASE_URL.'postMittagstisch?geschaeft='.$this->_['geschaeft'].'&token='.$this->_['token'].'" method="POST"  accept-charset="UTF-8">';
+            if (!empty($this->_['editID']) && $this->_['editID'] == $value['ID']) {
+                echo '<input type="hidden" name="tableID" value="'.$value['ID'].'" />';
+            }
+            echo '
                    <div class="row">
                     <div class="col-lg-2 hidden-md hidden-sm hidden-xs"></div>
                     <div class="col-lg-6 col-sm-12 k_table-overview">
-                        <strong>Mittagstisch Nr. '.$value['ID'].'</strong><br/>
+                        <strong>Mittagstisch</strong><br/>
                         <span>KW '.$value['KW'].'</span><br/><br/>
                     </div>
                     <div class="col-lg-2 col-sm-12 k_table-overview">

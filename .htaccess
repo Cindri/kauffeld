@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteBase /kauffeld/
+RewriteBase /
 RewriteRule ^(adminTemp)/?$ adminTemp/adminMittagstisch.php [QSA]
 RewriteRule ^([a-zA-Z]+/?)$ index.php?view=$1 [QSA]
 RewriteRule ^([a-zA-Z]+/?)/([a-zA-Z]+/?)$ index.php?view=$1&subpage=$2 [QSA]

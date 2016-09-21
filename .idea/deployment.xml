@@ -2,14 +2,28 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="Insterburg Homepage">
+      <paths name="Hänssel">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="Lavarel Testumgebung">
+      <paths name="WaterID">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Webserver RF Simple Page">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="localhost/theobaldt">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

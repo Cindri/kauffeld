@@ -171,7 +171,7 @@ function createPDFOutput($pdfData)
 
 	// Footer, Hinweise zur Abmeldung
 	$opts = "fontname={x} fontsize=10 encoding=utf8 alignment=center leading=120%";
-	$textflow = PDF_add_textflow($p, 0, "Anmeldung oder Abmeldung für die Zusendung der Mittagsmenüs und/oder der Wochenangebote der Metzgerei entweder unter www.metzgerei-kauffeld.de, per Mail an info@metzgerei-kauffeld.de oder per Fax 07221-50466999 .", $opts);
+	$textflow = PDF_add_textflow($p, 0, $pdfData['footerText'], $opts);
 	PDF_fit_textflow($p, $textflow, 50, 5, 545, 35, "fitmethod=clip firstlinedist=leading");
 
 	PDF_end_page_ext($p, "");
