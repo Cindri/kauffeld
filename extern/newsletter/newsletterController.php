@@ -34,8 +34,8 @@ switch ($type) {
 
 
         // Konfiguration
-        $cardName = "Metzgerei_Kauffeld_Wochenmenü.pdf";
-        $mailbetreff = "Metzgerei Kauffeld Wochenmenü";
+        $cardName = "Metzgerei_Kauffeld_Mittagstisch.pdf";
+        $mailbetreff = "Metzgerei Kauffeld Mittagstisch";
         $mailstring = '
         <!DOCTYPE html>
         <html>
@@ -43,7 +43,7 @@ switch ($type) {
                 <meta charset="UTF-8" />
             </head>
             <body>
-                <h2>Metzgerei Kauffeld - Mittagskarte</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie die von Ihnen abonnierte Menükarte(n) / Angebot(e) unseres Hauses als PDF-Dokument(e).<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
+                <h2>Metzgerei Kauffeld - Mittagskarte</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie die von Ihnen abonnierte Menükarte unseres Hauses als PDF-Dokument.<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
                 <br><br>------------------------<br><br>
 Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter folgendem Link abmelden:<br>
 <a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&email=%%MAIL%%">Hier austragen</a>
@@ -86,7 +86,7 @@ Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter f
                 <meta charset="UTF-8" />
             </head>
             <body>
-                <h2>Metzgerei Kauffeld - Wochenkarte</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie die von Ihnen abonnierte Menükarte(n) / Angebot(e) unseres Hauses als PDF-Dokument(e).<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
+                <h2>Metzgerei Kauffeld - Wochenangebot</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie das von Ihnen abonnierte Wochenangebot unseres Hauses als PDF-Dokument.<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
                 <br><br>------------------------<br><br>
 Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter folgendem Link abmelden:<br>
 <a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&email=%%MAIL%%">Hier austragen</a>
@@ -151,7 +151,6 @@ while ($row = $result->fetch_assoc())
 }
 
 $mailempf[] = "d.peter@panten.de";
-$mailempf = [];
 
 
 // Alle Empfänger ausgewählt. Starte den Versand jetzt.
@@ -194,12 +193,9 @@ foreach ($mailempf as $value) {
 
 $sql = "SELECT `fax` FROM `newsletter` WHERE `confirmed` = '1' AND `fax` != '' AND ".$addWhere;
 $result = $mysqli->query($sql);
-$counter = 0;
+
 while ($row = $result->fetch_object()) {
     $faxempf .= $row->fax."\n";
-    $counter++;
 }
 
 require_once("sendPDFToRecipientList.php");
-
-echo $counter;

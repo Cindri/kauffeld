@@ -61,7 +61,7 @@ switch ($_GET['page']) {
         $pdfData['fontSizeEntryHead'] = 20;
         $pdfData['fontSizeSubhead'] = 14;
         $pdfData['fontSizeText'] = 13;
-
+        $pdfData['footerText'] = 'Anmeldung oder Abmeldung für die Zusendung der Mittagsmenüs und/oder der Wochenangebote der Metzgerei entweder unter www.metzgerei-kauffeld.de, per Mail an info@metzgerei-kauffeld.de oder per Fax 07221-50466999 .';
 
         break;
     case "catering":
@@ -105,8 +105,9 @@ switch ($_GET['page']) {
         $pdfData['fontSizeSubhead'] = 14;
         $pdfData['fontSizeText'] = 13;
 
-        $pdfData['footerAdressen'] = $adressenArray;
-        $pdfData['footerZeiten'] = $oeffnungszeitenArray;
+        $pdfData['footerAdressen'] = array();
+        $pdfData['footerZeiten'] = array();
+        $pdfData['footerText'] = 'Metzgerei Kauffeld, Wilhelm-Drapp-Str. 14, 76532 Baden-Baden, Tel. 07221-5046600 .';
 
         break;
     case "mittagstisch":
@@ -159,6 +160,7 @@ switch ($_GET['page']) {
             $pdfData['entryHeadMargin'] = 24;
         }
 
+        $pdfData['footerText'] = 'Anmeldung oder Abmeldung für die Zusendung der Mittagsmenüs und/oder der Wochenangebote der Metzgerei entweder unter www.metzgerei-kauffeld.de, per Mail an info@metzgerei-kauffeld.de oder per Fax 07221-50466999 .';
 
         break;
 
