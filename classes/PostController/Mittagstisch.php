@@ -7,6 +7,13 @@ $startDate = new DateTime($this->request['startDate'][$tableID]);
 $endDate = new DateTime($this->request['endDate'][$tableID]);
 $werbetext = $this->request['werbetext'][$tableID];
 
+/* DEBUG
+echo '<pre>';
+print_r($this->request);
+echo '</pre>';
+die();
+*/
+
 $updateTable = array(
     'startDate' => $startDate->format("Y-m-d"),
     'endDate' => $endDate->format("Y-m-d"),

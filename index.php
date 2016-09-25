@@ -6,7 +6,7 @@
  * Time: 13:16
  */
 
-require_once "config.php";
+require_once("config.php");
 
 require_once('classes/MainController.php');
 require_once('classes/Model.php');

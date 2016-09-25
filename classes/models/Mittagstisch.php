@@ -27,7 +27,6 @@ class Mittagstisch extends Model
         parent::__construct();
         $this->geschaeft = $this->getDbConn()->real_escape_string($geschaeft);
         $this->date = new DateTime($date);
-        $this->kalenderwoche = $this->date->format("W");
         if (!empty($id)) {
             $this->kartenID = $this->getDbConn()->real_escape_string($id);
             $sql = 'SELECT ID, startDate, endDate, werbetext, last_change FROM mittagskarten WHERE ID = \''.$this->kartenID.'\' AND geschaeft = \''.$this->geschaeft.'\'';
@@ -46,10 +45,11 @@ class Mittagstisch extends Model
                 $this->kartenID = $tableData->ID;
                 $this->startDate = new DateTime($tableData->startDate);
                 $this->endDate = new DateTime($tableData->endDate);
+                $this->kalenderwoche = $this->startDate->format("W");
             }
         }
         else {
-            $this->werbetext = "Noch keine Mittagskarte für diese Zweigstelle vorhanden.";
+            $this->werbetext = "";
             $this->kartenID = null;
             $this->startDate = new DateTime();
             $this->endDate = new DateTime();

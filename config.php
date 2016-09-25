@@ -29,7 +29,7 @@ $pages = array(
     )
 );
 
-define("BASE_URL", "http://metzgerei-kauffeld.de/");
+define("BASE_URL", "http://".$_SERVER['HTTP_HOST']."/");
 
 /*
  * DB-Konfiguration 1&1

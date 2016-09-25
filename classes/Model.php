@@ -8,8 +8,8 @@
  */
 class Model
 {
-    private $dbConn;
-    private $locale;
+    protected $dbConn;
+    protected $locale;
 
     public function __construct()
     {

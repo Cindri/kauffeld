@@ -58,6 +58,6 @@ if (!empty($mittagstisch)) {
         }
     }
 }
-$pageContent .= '<div class="container" style="margin-top:20px;">Hier können Sie sich am Verteiler für die Mittagsmenüs und der Wochenkarte anmelden:<br/><a href="'.BASE_URL.'newsletter">Zur Anmeldung</a></div>';
+$pageContent .= '<div class="container" style="margin-top:20px; font-size:18pt;">Hier können Sie sich am Verteiler für die Mittagsmenüs und der Wochenkarte anmelden: <a href="'.BASE_URL.'newsletter">Zur Anmeldung</a></div>';
 // Content in eine Variable laden
 $this->view->assign("pageContent", $pageContent);
