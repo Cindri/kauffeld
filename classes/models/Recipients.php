@@ -40,7 +40,7 @@ class Recipients {
                 $this->strasse = $row->strasse;
                 $this->name = $row->name;
                 $this->stadt = $row->stadt;
-                $this->confirmed = $row->confirmed;
+                $this->confirmed = boolval($row->confirmed);
                 $this->willWochenkarte = $this->strToBool($row->willWochenkarte);
                 $this->willRheinstrasse = $this->strToBool($row->willRheinstrasse);
                 $this->willHauptgeschaeft = $this->strToBool($row->willHauptgeschaeft);

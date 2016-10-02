@@ -25,7 +25,8 @@ $pages = array(
         "postWochenkarte",
         "postCatering",
         "NewsletterRegister",
-        "newsletterConfirm"
+        "newsletterConfirm",
+        "postNewsletter"
     )
 );
 

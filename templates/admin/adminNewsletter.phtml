@@ -1,0 +1,109 @@
+<?php
+
+function checked($val)
+{
+    return empty($val) ? "" : "checked";
+}
+
+function makeCheckbox($name, $value, $onclick = '', $addAttr = '') {
+    $checked = empty(intval($value)) ? '' : ' checked';
+    $str = '<input type="checkbox" value="1" name="' . $name . '"' . $checked . ' onclick="' . $onclick . '" ' . $addAttr . '/>';
+    return $str;
+}
+
+function makeYesNo($value, $onclick = '') {
+    $return = '';
+    if (empty($value)) {
+        $return = '<span class="glyphicon glyphicon-remove" style="color:red; cursor:pointer;"';
+    } else {
+        $return = '<span class="glyphicon glyphicon-ok" style="color:green; cursor:pointer;"';
+    }
+    if (!empty($onclick)) {
+        $return .= ' onclick="' . $onclick . '"';
+    }
+    $return .= '></span>';
+    return $return;
+}
+
+if (!empty($this->_['error'])) {
+    echo $this->_['error'];
+}
+
+if (!empty($this->_['subNavi'])) {
+    ?>
+    <div class="container">
+        <div class="subnavi text-justify" style="width:100%">
+            <?php
+            foreach ($this->_['subNavi'] as $key => $value) {
+                $active = ($this->_['subNavi_active'] == $key ? ' class="active"' : '');
+                echo '<a href="' . BASE_URL . $this->_['activeLink'] . "?type=" . $key . '&token=' . $this->_['token'] . '"' . $active . '>' . $value . '</a>';
+            }
+            ?>
+        </div>
+    </div>
+<?php }
+
+if (is_array($this->_['entries'])) {
+    echo '<form action="' . BASE_URL . 'postNewsletter?token=' . $this->_['token'] . '" method="POST"  accept-charset="UTF-8">';
+    foreach ($this->_['entries'] as $key => $value) {
+
+        if ($key == "msg") {
+            continue;
+        }
+
+        echo '<div class="row singleEntry recipient" id="repicient' . $value->getID() . '">';
+        echo '<div class="col-lg-12 k_side-bordered">';
+        echo '<div class="container">';
+        echo '<div class="row">
+<div class="col-lg-3 col-md-6"> ' . $value->getName() . '</div>
+<div class="col-lg-3 col-md-6"> ' . $value->getFax() . '</div>
+<div class="col-lg-3 col-md-6"> ' . $value->getEmail() . '</div>
+<div class="col-lg-3 col-md-6 controls" style="text-align:right;"> ' . makeYesNo($value->isConfirmed(), 'setConfirmed(' . $value->getID() . ', ' . intval(!$value->isConfirmed()) . ', this)') . ' &nbsp;
+<span class="glyphicon glyphicon-pencil" style="cursor:pointer;" onclick="edit(' . $value->getID() . ')"></span> &nbsp;
+<span class="glyphicon glyphicon-floppy-remove" style="cursor:pointer;" onclick="deleteEntry(' . $value->getID() . ')"></span> &nbsp;
+</div>
+</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="container edit" id="edit' . $value->getID() . '">
+                    <input type="hidden" name="edited[' . $value->getID() . ']" value="0" id="isEdited' . $value->getID() . '" />
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="edit' . $value->getID() . '-name">Name</span>
+                        <input type="text" class="form-control" name="name[' . $value->getID() . ']" aria-describedby="edit' . $value->getID() . '-name" value="' . $value->getName() . '" />
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="edit' . $value->getID() . '-strasse">Straße</span>
+                        <input type="text" class="form-control" style="width:70%" name="strasse[' . $value->getID() . ']" aria-describedby="edit' . $value->getID() . '-straße" value="' . $value->getStrasse() . '" />
+                        <input type="text" class="form-control" style="width:30%" name="stadt[' . $value->getID() . ']" aria-describedby="edit' . $value->getID() . '-stadt" value="' . $value->getStadt() . '" />
+                        <span class="input-group-addon" id="edit' . $value->getID() . '-stadt">Stadt</span>
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="edit' . $value->getID() . '-email">E-Mail</span>
+                        <input type="text" class="form-control" style="width:70%" name="email[' . $value->getID() . ']" aria-describedby="edit' . $value->getID() . '-email" value="' . $value->getEmail() . '" />
+                        <input type="text" class="form-control" style="width:30%" name="fax[' . $value->getID() . ']" aria-describedby="edit' . $value->getID() . '-fax" value="' . $value->getFax() . '" />
+                        <span class="input-group-addon" id="edit' . $value->getID() . '-fax">Fax</span>
+                    </div>
+                    <input type="submit" value="Speichern" />
+                    <label class="checkbox-inline">
+                        '.makeCheckbox('willHauptgeschaeft[' . $value->getID() . ']', $value->isWillHauptgeschaeft()).' Hauptgeschäft
+                    </label>
+                    <label class="checkbox-inline">
+                        '.makeCheckbox('willRheinstrasse[' . $value->getID() . ']', $value->isWillRheinstrasse()).' Rheinstraße
+                    </label>
+                    <label class="checkbox-inline">
+                        '.makeCheckbox('willWochenkarte[' . $value->getID() . ']', $value->isWillWochenkarte()).' Wochenkarte
+                    </label>
+              </div>';
+        echo '</div>';
+    }
+
+
+    echo '<div class="row submit-row">
+             <div class="col-lg-12 k_side-bordered">
+                <input type="submit" class="btn btn-default" name="tableSubmit" value="Speichern" />
+             </div>
+          </div>';
+    echo '</form>';
+}
+
+?>

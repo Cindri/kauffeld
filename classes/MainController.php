@@ -90,7 +90,8 @@ class Controller
                     $subpagesArray = array(
                         "mittagstisch?token=".$getToken => "Mittagstische bearbeiten",
                         "wochenkarte?token=".$getToken => "Wochenkarte bearbeiten",
-                        "catering?token=".$getToken => "Catering bearbeiten"
+                        "catering?token=".$getToken => "Catering bearbeiten",
+                        "newsletter?token=".$getToken => "Newsletter-Empfänger"
                     );
 
                     $subpage = empty($this->request['subpage']) ? "" : trim($this->request['subpage']);
@@ -144,6 +145,10 @@ class Controller
                                 case "catering":
                                     include "classes/AdminController/CateringAdminController.php";
                                     break;
+
+                                case "newsletter":
+                                    include "classes/AdminController/NewsletterAdminController.php";
+                                    break;
                                 default:
                                     $adminSubpageContent = "";
                             }
@@ -186,6 +191,9 @@ class Controller
                     include "classes/PostController/NewsletterConfirm.php";
                     return null;
                     break;
+                case "postNewsletter":
+                    include "classes/PostController/NewsletterRepicients.php";
+                    return null;
             }
         } else {
             $this->view->assign("page", $this->page);

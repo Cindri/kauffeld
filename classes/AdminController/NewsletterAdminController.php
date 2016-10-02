@@ -1,37 +1,48 @@
 <?php
-$this->view->assign("activeLink", $this->page);
-$this->view->assign("title", "Metzgerei Kauffeld - Admin Catering");
-$this->view->assign("header", "Administration - Catering");
 
-// 1. Daten holen, 2. Daten an View übergeben 3. Formular ausgeben 4. Post-Handler mit Weiterleitung schreiben
-$cateringType = empty($this->request['type']) ? "fingerfood" : $this->request['type'];
-$data = new Catering($cateringType);
-$werbetext = $data->getWerbetext();
-$speisen = $data->getEntries(false, "ID ASC");
+require ("classes/models/Recipients.php");
+
+$this->view->assign("activeLink", $this->page);
+$this->view->assign("title", "Metzgerei Kauffeld - Admin Newsletter");
+$this->view->assign("header", "Administration - Newsletter");
+
+$dbconn = new Model();
+$dbReturn = $dbconn->getWholeTable('newsletter', 'name ASC');
 
 $adminSubpage = new View();
-$adminSubpage->setTemplate("admin/adminCatering");
+$adminSubpage->setTemplate("admin/adminNewsletter");
 $adminSubpage->assign("entries", $cateringType);
 $adminSubpage->assign("subNavi", $data->subpagesArray);
-$adminSubpage->assign("subNavi_active", $data->getType());
-$adminSubpage->assign("activeLink", "admin/catering");
+$adminSubpage->assign("activeLink", "admin/newsletter");
 
-if (!empty($speisen['error'])) {
-    $adminSubpage->assign("error", $speisen['error']);
+if (!empty($dbReturn['error'])) {
+    $adminSubpage->assign("error", $dbReturn['error']);
 }
 else {
-    foreach ($speisen as $key => $value) {
+    $recipients = array();
+    foreach ($dbReturn as $key => $value) {
         if ($key == "error") { continue; }
-        $cateringMeals[$key]['title'] = $value['title'];
-        $cateringMeals[$key]['descr'] = $value['desc'];
-        $cateringMeals[$key]['price'] = $value['price'];
-        $cateringMeals[$key]['display'] = $value['display'];
-        $cateringMeals[$key]['unit'] = $value['unit'];
-        $cateringMeals[$key]['displayPDF'] = $value['displayPDF'];
+        $recipient = new Recipients();
+        $recipient->setId($value->ID);
+        $recipient->setFax($value->fax);
+        $recipient->setEmail($value->email);
+        $recipient->setStrasse($value->strasse);
+        $recipient->setName($value->name);
+        $recipient->setStadt($value->stadt);
+        $recipient->setConfirmed(boolval($value->confirmed));
+        $recipient->setWillHauptgeschaeft($recipient->strToBool($value->willHauptgeschaeft));
+        $recipient->setWillRheinstrasse($recipient->strToBool($value->willRheinstrasse));
+        $recipient->setWillWochenkarte($recipient->strToBool($value->willWochenkarte));
+        $recipients[$key] = $recipient;
+
     }
-    $adminSubpage->assign("entries", $cateringMeals);
+
+//    print '<pre>';
+//    var_dump($recipients);
+//    print '</pre>';
+
+    $adminSubpage->assign("entries", $recipients);
     $adminSubpage->assign("type", $cateringType);
-    $adminSubpage->assign("werbetext", $werbetext);
 }
 
 $adminSubpage->assign("token", $login->getToken());

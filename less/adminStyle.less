@@ -15,8 +15,30 @@
 }
 
 .singleEntry {
+  margin-top:10px;
   margin-bottom:10px;
+
+  &.recipient {
+    border-bottom:1px solid gray;
+    padding-top:5px;
+    padding-bottom:5px;
+
+    .controls {
+      cursor:pointer;
+    }
+
+    .edit {
+      display: none;
+      background-color:@content-bgColor;
+      padding:5px;
+      font-size:13pt;
+    }
+
+  }
+
 }
+
+
 
 .submit-row {
   margin-top:10px;
