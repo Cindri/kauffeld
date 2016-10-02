@@ -51,7 +51,7 @@ if (!empty($this->request['create'])) {
         $createCols = array(
             'kartenID' => $insertId,
             'type' => 'Suppe der Woche',
-            'day' => '99'
+            'day' => '98'
         );
         if (intval($data->createTable("mittagsspeisen", $createCols)) == 0) {
             $adminSubpage->assign("error", View::errorBox("alert-danger", "Fehler beim Erstellen der Speisen der Karte #$insertId."));
