@@ -72,10 +72,15 @@
                         <span class="input-group-addon" id="addon_mail"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
                         <input type="text" class="form-control input-lg" id="contactForm_email" name="contactForm_email" placeholder="Ihre E-Mail-Adresse" value="<?php echo (!isset($this->_['contactForm_email']) ? "" : $this->_['contactForm_email']); ?>" aria-describedby="addon_mail">
                     </div>
-                    <label for="contactForm_betreff">Telefonnummer:</label>
+                    <label for="contactForm_phone">Telefonnummer:</label>
                     <div class="input-group">
-                        <span class="input-group-addon" id="addon_betreff"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></span>
-                        <input type="text" class="form-control input-lg" id="contactForm_betreff" name="contactForm_subject" placeholder="Ihre Telefonnummer" value="<?php echo (!isset($this->_['contactForm_subject']) ? "" : $this->_['contactForm_subject']); ?>" aria-describedby="addon_betreff">
+                        <span class="input-group-addon" id="addon_phone"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></span>
+                        <input type="text" class="form-control input-lg" id="contactForm_phone" name="contactForm_phone" placeholder="Ihre Telefonnummer" value="<?php echo (!isset($this->_['contactForm_phone']) ? "" : $this->_['contactForm_phone']); ?>" aria-describedby="addon_phone">
+                    </div>
+                    <label for="contactForm_subject">Betreff:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="addon_subject"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+                        <input type="text" class="form-control input-lg" id="contactForm_subject" name="contactForm_subject" placeholder="Betreff" value="<?php echo (!isset($this->_['contactForm_subject']) ? "" : $this->_['contactForm_subject']); ?>" aria-describedby="addon_subject">
                     </div>
                     <label for="contactForm_msg">Ihre Nachricht:</label>
                     <div class="input-group">
