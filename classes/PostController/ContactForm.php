@@ -43,7 +43,7 @@ else {
         $betreff = trim(substr($this->request['contactForm_subject'], 0, 255));
         $nachricht = wordwrap($this->request['contactForm_msg'], 75);
         $header = 'From: kontakt@metzgerei-kauffeld.de' . "\r\n" .
-            'Reply-To: info@metzgerei-kauffeld.de' . "\r\n" .
+            'Reply-To: '.trim($this->request['contactForm_email']). "\r\n" .
             'X-Mailer: PHP/' . phpversion();
         if (!mail($empfaenger, $betreff, $nachricht, $header)) {
             $this->view->assign("error", $this->view->errorBox("alert-danger", "Unbekannter Fehler beim Mailversand!", "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später noch einmal, rufen Sie uns an oder schreiben Sie uns eine E-Mail."));
