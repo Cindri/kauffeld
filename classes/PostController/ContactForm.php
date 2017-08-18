@@ -42,7 +42,7 @@ else {
         $empfaenger = CONTACT_MAIL;
         $betreff = trim(substr($this->request['contactForm_subject'], 0, 255));
         $nachricht = wordwrap($this->request['contactForm_msg'], 75);
-        $header = 'From: kontakt@metzgerei-kauffeld.de' . "\r\n" .
+        $header = 'From: ' . trim($this->request['contactForm_email']) . "\r\n" .
             'Reply-To: '.trim($this->request['contactForm_email']). "\r\n" .
             'X-Mailer: PHP/' . phpversion();
         if (!mail($empfaenger, $betreff, $nachricht, $header)) {
