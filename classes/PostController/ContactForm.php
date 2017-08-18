@@ -40,9 +40,11 @@ else {
 
         // Everything is fine, start email delivery
         $empfaenger = CONTACT_MAIL;
+        // $empfaenger = 'davidpeter1337@gmail.com';
         $betreff = trim(substr($this->request['contactForm_subject'], 0, 255));
-        $nachricht = wordwrap($this->request['contactForm_msg'], 75);
-        $header = 'From: ' . trim($this->request['contactForm_email']) . "\r\n" .
+        $nachricht = 'Absender-E-Mail: ' . $this->request['contactForm_email'] . "\r\n" . 'Name: ' . $this->request['contactForm_name'] . "\r\n \r\n" . 'Telefon: ' . $this->request['contactForm_phone'] . "\r\n \r\n";
+        $nachricht .= wordwrap($this->request['contactForm_msg'], 75);
+        $header = 'From: kontaktformular@metzgerei-kauffeld.de ' . "\r\n" .
             'Reply-To: '.trim($this->request['contactForm_email']). "\r\n" .
             'X-Mailer: PHP/' . phpversion();
         if (!mail($empfaenger, $betreff, $nachricht, $header)) {
