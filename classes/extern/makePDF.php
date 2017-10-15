@@ -169,6 +169,12 @@ function createPDFOutput($pdfData)
 
 	}
 
+	$lly -= 25;
+	$opts = "fontname={y} fontsize=".$pdfData['fontSizeText']." encoding=utf8 alignment=center leading=120%";
+	$textflow = PDF_add_textflow($p, 0, $pdfData['werbetext'], $opts);
+	PDF_fit_textflow($p, $textflow, 50, $lly-20, 545, $lly+20, "fitmethod=clip firstlinedist=leading");
+
+
 	// Footer, Hinweise zur Abmeldung
 	$opts = "fontname={x} fontsize=10 encoding=utf8 alignment=center leading=120%";
 	$textflow = PDF_add_textflow($p, 0, $pdfData['footerText'], $opts);
