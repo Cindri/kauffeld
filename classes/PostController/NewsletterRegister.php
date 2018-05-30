@@ -18,13 +18,6 @@ if (empty($this->request['submit']) || $this->request['submit'] != "Registrieren
 }
 else {
     // Validate form
-
-    // Name muss ausgefüllt sein
-    if (empty(trim($this->request['name']))) {
-        $error = true;
-        $this->view->assign("error", $this->view->errorBox("alert-danger", "Name muss angegebene sein!", "Bitte geben Sie Ihren Namen zur Anmeldung ein."));
-        $this->view->assign("pageContent", $pageContent->loadTemplate());
-    }
     // Entweder E-Mail oder Faxnummer (oder beides) müssen ausgefüllt sein
     if (empty(trim($this->request['email'])) AND empty($this->request['fax'])) {
         $error = true;
