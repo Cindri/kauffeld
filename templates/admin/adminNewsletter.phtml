@@ -11,15 +11,13 @@ function makeCheckbox($name, $value, $onclick = '', $addAttr = '') {
     return $str;
 }
 
+// 12.06.18 Änderung: Nur noch clickbar, um zu DEaktivieren. Manuelle Aktivierung noch theoretisch durch POST-Daten möglich, Funktionalität ist im JavaScript (AJAX) angelegt
 function makeYesNo($value, $onclick = '') {
     $return = '';
     if (empty($value)) {
         $return = '<span class="glyphicon glyphicon-remove" style="color:red; cursor:pointer;"';
     } else {
-        $return = '<span class="glyphicon glyphicon-ok" style="color:green; cursor:pointer;"';
-    }
-    if (!empty($onclick)) {
-        $return .= ' onclick="' . $onclick . '"';
+        $return = '<span class="glyphicon glyphicon-ok" style="color:green; cursor:pointer;" onclick="' . $onclick . '"';
     }
     $return .= '></span>';
     return $return;

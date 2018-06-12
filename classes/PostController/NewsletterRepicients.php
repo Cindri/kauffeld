@@ -24,7 +24,7 @@ foreach ($_POST['edited'] as $key => $value) {
 
     $updateArray = array(
         'name' => $_POST['name'][$key],
-        'confirmed' => !empty($_POST['confirmed'][$key]),
+        // 'confirmed' => !empty($_POST['confirmed'][$key]),
         'strasse' => $_POST['strasse'][$key],
         'stadt' => $_POST['stadt'][$key],
         'email' => $_POST['email'][$key],
