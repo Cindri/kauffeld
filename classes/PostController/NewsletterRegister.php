@@ -132,16 +132,22 @@ else {
             'Reply-To: info@metzgerei-kauffeld.de' . "\r\n" .
             'X-Mailer: PHP/' . phpversion() . "\r\n";
         $header .= "Content-Type: text/html; charset=UTF-8\n";
-        if (!mail($empfaenger, $betreff, $nachricht, $header)) {
-            $this->view->assign("error", $this->view->errorBox("alert-danger", "Unbekannter Fehler beim Mailversand!", "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später noch einmal, rufen Sie uns an oder schreiben Sie uns eine E-Mail."));
-        }
-        else {
-            if (empty($this->view->_['error'])) {
-                $this->view->assign("error", $this->view->errorBox("alert-success", "Mail erfolgreich versendet!", "Ihre Nachricht wurde erfolgreich versendet und sollte in wenigen Minuten bei uns eintreffen!"));
+
+        if (!empty($empfaenger)) {
+            if (!mail($empfaenger, $betreff, $nachricht, $header)) {
+                $this->view->assign("error", $this->view->errorBox("alert-danger", "Unbekannter Fehler beim Mailversand!", "Die Bestätigungs-E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es später noch einmal, rufen Sie uns an oder schreiben Sie uns eine E-Mail."));
             }
             else {
-                $this->view->_['error'] .= $this->view->errorBox("alert-success", "Mail erfolgreich versendet!", "Ihre Nachricht wurde erfolgreich versendet. Bitte beachten Sie dennoch die sonstigen Meldungen!");
+                if (empty($this->view->_['error'])) {
+                    $this->view->assign("error", $this->view->errorBox("alert-success", "Bestätigungs-E-Mail versendet!", "Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet! Bitte bestätigen Sie Ihre Anmeldung durch Klick auf den Link in dieser E-Mail."));
+                }
+                else {
+                    $this->view->_['error'] .= $this->view->errorBox("alert-success", "Bestätigungs-E-Mail versendet!", "Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet! Bitte bestätigen Sie Ihre Anmeldung durch Klick auf den Link in dieser E-Mail. Bitte beachten Sie dennoch die sonstigen Meldungen!");
+                }
             }
+        }
+        else {
+            $this->view->assign("error", $this->view->errorBox("alert-warning", "Bestätigung der Anmeldung steht aus!", "Sie haben sich nur mit Ihrer Fax-Nummer angemeldet. Um die Anmeldung zu bestätigen, müssen Sie noch das Bestätigungs-Fax abwarten und zurückschicken, welches die Metzgerei Kauffeld Ihnen in den nächsten Tagen zufaxen wird."));
         }
     }
 
