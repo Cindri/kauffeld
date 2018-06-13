@@ -30,7 +30,7 @@ $pages = array(
     )
 );
 
-define("BASE_URL", "http://".$_SERVER['HTTP_HOST']."/");
+define("BASE_URL", "https://".$_SERVER['HTTP_HOST']."/");
 
 /*
  * DB-Konfiguration 1&1
@@ -46,5 +46,5 @@ define("SQL_PASS", "%;XDQd!q@zpr");
 define("SQL_DB", "db1091580-kauffeld");
 
 define("ADMIN_PASS", "testzugang2016");
-define("ADMIN_MAIL", 'davidpeter1337@gmail.com');
-define("CONTACT_MAIL", "s.panten@panten.de");
+define("ADMIN_MAIL", 's.panten@panten.de');
+define("CONTACT_MAIL", "info@metzgerei-kauffeld.de");

@@ -94,7 +94,7 @@ else {
         Kunde muss es unterschrieben zurückfaxen oder per Post senden. Diese Einwilligung ist seit der Einführung der DSGVO vom 25.05.2018 notwendig. <b>Das Bestätigungsfax bitte aufbewahren.</b>
         <p>
         Wenn der Kunde das Bestätigungsfax zurückgeschickt hat, klicken Sie bitte auf folgenden Link oder kopieren Ihn in die Adresszeile Ihres Browsers:<br>
-        <a href="http://metzgerei-kauffeld.de/newsletterConfirm?code='.$code.'">Anmeldung bestätigen</a><br>
+        <a href="https://metzgerei-kauffeld.de/newsletterConfirm?code='.$code.'">Anmeldung bestätigen</a><br>
         <b>Ohne diese von Ihnen vorzunehmende Confirmation wird der Kunde keine Faxe bekommen.</b>
 		<p>
 		Mit freundlichen Grüßen<br>
@@ -121,7 +121,7 @@ else {
             Sehr geehrter Kunde,<br/>
             vielen Dank für Ihr Interesse an unserem Mittagskarten- und Wochenkartenverteiler!<br/>
             Um sich in den Verteiler einzutragen, nutzen Sie bitte folgenden Bestätigungs-Link:<br/>
-            <a href="http://metzgerei-kauffeld.de/newsletterConfirm?code='.$code.'">Anmeldung bestätigen</a><br/><br/>
+            <a href="https://metzgerei-kauffeld.de/newsletterConfirm?code='.$code.'">Anmeldung bestätigen</a><br/><br/>
             Viele Grüße,<br/>
             Ihr Metzgerei-Kauffeld Team
         ';
