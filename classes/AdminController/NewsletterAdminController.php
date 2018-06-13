@@ -7,7 +7,7 @@ $this->view->assign("title", "Metzgerei Kauffeld - Admin Newsletter");
 $this->view->assign("header", "Administration - Newsletter");
 
 $dbconn = new Model();
-$dbReturn = $dbconn->getWholeTable('newsletter', 'name ASC');
+$dbReturn = $dbconn->getWholeTable('newsletter', 'fax ASC, email ASC');
 
 $adminSubpage = new View();
 $adminSubpage->setTemplate("admin/adminNewsletter");
@@ -27,9 +27,9 @@ else {
         $recipient->setFax($value->fax);
         $recipient->setEmail($value->email);
         $recipient->setConfirmed(boolval($value->confirmed));
-        $recipient->setDateConfirmed(new DateTime($value->date_confirmed));
-        $recipient->setDateRegister(new DateTime($value->date_register));
-        $recipient->setDateUnregister(new DateTime($value->date_unregister));
+        $recipient->setDateConfirmed(DateTime::createFromFormat('U', $value->date_confirmed));
+        $recipient->setDateRegister(DateTime::createFromFormat('U', $value->date_register));
+        $recipient->setDateUnregister(DateTime::createFromFormat('U', $value->date_unregister));
         $recipient->setWillHauptgeschaeft($recipient->strToBool($value->willHauptgeschaeft));
         $recipient->setWillRheinstrasse($recipient->strToBool($value->willRheinstrasse));
         $recipient->setWillWochenkarte($recipient->strToBool($value->willWochenkarte));

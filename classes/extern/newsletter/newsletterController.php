@@ -136,7 +136,8 @@ Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter f
         break;
     case "unregister";
         $unregId = $mysqli->real_escape_string($_GET['id']);
-        $sql = "UPDATE `newsletter` SET `confirmed` = '0', `date_unregister` = '" . time() . "' WHERE `ID` = '$unregId'";
+        $email = $mysqli->real_escape_string($_GET['email']);
+        $sql = "UPDATE `newsletter` SET `confirmed` = '0', `date_unregister` = '" . time() . "' WHERE `ID` = '$unregId' OR `email` = '$email'";
         $mysqli->query($sql) OR die ("Austragung hat leider nicht funktioniert, bitte kontaktieren Sie uns für einen manuellen Vorgang.");
         die("Sie wurden erfolgreich ausgetragen!");
         break;
@@ -175,7 +176,7 @@ foreach ($mailempf as $id => $value) {
     $kopf .= "--$id\n";
     $kopf .= "Content-Type: text/html; charset=UTF-8\n";
     $kopf .= "Content-Transfer-Encoding: 8bit\n\n";
-    $kopf .= str_replace("%%MAIL%%", $value, $mailstring); // Inhalt der E-Mail (Body)
+    $kopf .= str_replace("%%ID%%", $id, $mailstring); // Inhalt der E-Mail (Body)
     $kopf .= "\n--$id";
     $kopf .= "\nContent-Type: application/pdf; name=$dateiname_mail\n";
     $kopf .= "Content-Transfer-Encoding: base64\n";

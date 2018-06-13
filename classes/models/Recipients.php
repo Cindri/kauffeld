@@ -38,9 +38,9 @@ class Recipients {
                 $this->fax = $row->fax;
                 $this->email = $row->email;
                 $this->confirmed = boolval($row->confirmed);
-                $this->date_register = new DateTime($row->date_register);
-                $this->date_confirmed = new DateTime($row->date_confirmed);
-                $this->date_unregister = new DateTime($row->date_unregister);
+                $this->date_register = DateTime::createFromFormat('U', $row->date_register);
+                $this->date_confirmed = DateTime::createFromFormat('U', $row->date_confirmed);
+                $this->date_unregister = DateTime::createFromFormat('U', $row->date_unregister);
                 $this->willWochenkarte = $this->strToBool($row->willWochenkarte);
                 $this->willRheinstrasse = $this->strToBool($row->willRheinstrasse);
                 $this->willHauptgeschaeft = $this->strToBool($row->willHauptgeschaeft);
