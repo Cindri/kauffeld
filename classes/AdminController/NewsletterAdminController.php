@@ -26,9 +26,6 @@ else {
         $recipient->setId($value->ID);
         $recipient->setFax($value->fax);
         $recipient->setEmail($value->email);
-        $recipient->setStrasse($value->strasse);
-        $recipient->setName($value->name);
-        $recipient->setStadt($value->stadt);
         $recipient->setConfirmed(boolval($value->confirmed));
         $recipient->setWillHauptgeschaeft($recipient->strToBool($value->willHauptgeschaeft));
         $recipient->setWillRheinstrasse($recipient->strToBool($value->willRheinstrasse));

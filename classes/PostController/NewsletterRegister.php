@@ -25,12 +25,13 @@ else {
         $this->view->assign("pageContent", $pageContent->loadTemplate());
     } else {
         // Wenn E-Mail: Ist gültige E-Mail?
-        if (!filter_var(trim($this->request['email']), FILTER_VALIDATE_EMAIL)) {
-            $error = true;
-            $this->view->assign("error", $this->view->errorBox("alert-danger", "Ungültige E-Mail-Adresse!", "Die eingegebene E-Mail-Adresse entspricht nicht den gängigen Formaten. Bitte eine korrekte Adresse eingeben."));
-            $this->view->assign("pageContent", $pageContent->loadTemplate());
+        if (!empty(trim($this->request['email']))) {
+            if (!filter_var(trim($this->request['email']), FILTER_VALIDATE_EMAIL)) {
+                $error = true;
+                $this->view->assign("error", $this->view->errorBox("alert-danger", "Ungültige E-Mail-Adresse!", "Die eingegebene E-Mail-Adresse entspricht nicht den gängigen Formaten. Bitte eine korrekte Adresse eingeben."));
+                $this->view->assign("pageContent", $pageContent->loadTemplate());
+            }
         }
-
     }
 
     // Es muss mindestens eine Karte ausgewählt sein
@@ -69,7 +70,47 @@ else {
 
         $code = base64_encode($data->getDbConn()->insert_id);
 
-        // Hat soweit alles geklappt. Versende Registrierungs-E-Mail
+        // Versende E-Mail an den Admin
+        $message = '
+        <html>
+        <head></head>
+        <body>
+        <h2>Infomail an Admin des Info-Verteilers der Metzgerei Kauffeld</h2>
+		<h3>Ein Kunde hat sich für den Info-Verteiler der Metzgerei Kauffeld eingetragen.</h3>
+		<p>
+		<b>Folgende Daten hat der Kunde angegeben:</b><br>
+        E-Mail: ' . $dbEmail . '<br>
+        Fax: ' . $dbFax . '<br>
+        <p>
+        <b>E-Mail-Anmeldung:</b><br>
+		Sie müssen Sie nichts weiter tun, da der Kunde seine Anmeldung selbst über eine Bestätigungs-E-Mail bestätigen kann. Sie werden benachrichtigt, wenn der Kunde seine Anmeldung bestätigt hat.<br>
+		<b>Die Bestätigungs-Mail bitte aufbewahren (egal, ob als Daten oder als Ausdruck)</b>
+		<p>
+		<b>Fax-Anmeldung:</b><br>
+		Vorgefertigtes Fax „Mit der Bitte um Rückbestätigung“ an die obige Faxnummer senden.
+        Kunde muss es unterschrieben zurückfaxen oder per Post senden. Diese Einwilligung ist seit der Einführung der DSGVO vom 25.05.2018 notwendig. <b>Das Bestätigungsfax bitte aufbewahren.</b>
+        <p>
+        Wenn der Kunde das Bestätigungsfax zurückgeschickt hat, klicken Sie bitte auf folgenden Link oder kopieren Ihn in die Adresszeile Ihres Browsers:<br>
+        <a href="http://metzgerei-kauffeld.de/newsletterConfirm?code='.$code.'">Anmeldung bestätigen</a><br>
+        <b>Ohne diese von Ihnen vorzunehmende Confirmation wird der Kunde keine Faxe bekommen.</b>
+		<p>
+		Mit freundlichen Grüßen<br>
+		Webmailer auf www.metzgerei-kauffeld.de<br>
+		Bei technischen Fragen wenden Sie sich direkt an Swen Panten.
+		<p>
+		Dies ist eine automatisch generierte E-Mail.
+		</body>
+		</html>
+        ';
+        $betreff = "Metzgerei Kauffeld - Neue Anmeldung am Newsletter";
+        $header = 'From: newsletter@metzgerei-kauffeld.de' . "\r\n" .
+            'Reply-To: info@metzgerei-kauffeld.de' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion() . "\r\n";
+        $header .= "Content-Type: text/html; charset=UTF-8\n";
+        mail(ADMIN_MAIL, $betreff, $message, $header);
+
+
+        // Versende Registrierungs-E-Mail
         $empfaenger = $dbEmail;
 
         $message = '

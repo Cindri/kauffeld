@@ -46,7 +46,7 @@ switch ($type) {
                 <h2>Metzgerei Kauffeld - Mittagskarte</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie die von Ihnen abonnierte Menükarte unseres Hauses als PDF-Dokument.<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
                 <br><br>------------------------<br><br>
 Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter folgendem Link abmelden:<br>
-<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&email=%%MAIL%%">Hier austragen</a>
+<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&id=%%ID%%">Hier austragen</a>
             </body>
         </html>
         ';
@@ -89,7 +89,7 @@ Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter f
                 <h2>Metzgerei Kauffeld - Wochenangebot</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie das von Ihnen abonnierte Wochenangebot unseres Hauses als PDF-Dokument.<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
                 <br><br>------------------------<br><br>
 Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter folgendem Link abmelden:<br>
-<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&email=%%MAIL%%">Hier austragen</a>
+<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&id=%%ID%%">Hier austragen</a>
             </body>
         </html>
         ';
@@ -122,31 +122,29 @@ Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter f
                 <h2>Metzgerei Kauffeld - Catering-Angebote</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie die von Ihnen abonnierte Menükarte(n) / Angebot(e) unseres Hauses als PDF-Dokument(e).<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
                 <br><br>------------------------<br><br>
 Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter folgendem Link abmelden:<br>
-<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&email=%%MAIL%%">Hier austragen</a>
+<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&id=%%ID%%">Hier austragen</a>
             </body>
         </html>
         ';
         */
         break;
     case "unregister";
-        $unregMail = $mysqli->real_escape_string($_GET['email']);
-        $sql = "UPDATE `newsletter` SET `confirmed` = '0' WHERE `email` = '$unregMail'";
+        $unregId = $mysqli->real_escape_string($_GET['id']);
+        $sql = "UPDATE `newsletter` SET `confirmed` = '0' WHERE `ID` = '$unregId'";
         $mysqli->query($sql) OR die ("Austragung hat leider nicht funktioniert, bitte kontaktieren Sie uns für einen manuellen Vorgang.");
         die("Sie wurden erfolgreich ausgetragen!");
         break;
 }
 
 // Starte Mailversand
-$sql = "SELECT `email`, `name`, `stadt` FROM `newsletter` WHERE `confirmed` = '1' AND `email` != '' AND ".$addWhere;
+$sql = "SELECT `ID`, `email` FROM `newsletter` WHERE `confirmed` = '1' AND `email` != '' AND ".$addWhere;
 
 $result = $mysqli->query($sql);
 while ($row = $result->fetch_assoc())
 {
     if (!empty($row['email']))
     {
-        $mailempf[] = $row['email'];
-        $namen[] = $row['name'];
-        $telefone[]= $row['telefon'];
+        $mailempf[$row['ID']] = $row['email'];
     }
 }
 
@@ -161,7 +159,7 @@ $dateiname_mail = $cardName;
 $id = md5(uniqid(time()));
 $dateiinhalt = file_get_contents($pdf);
 
-foreach ($mailempf as $value) {
+foreach ($mailempf as $id => $value) {
     // Absender Name und E-Mail Adresse
     $kopf = "From: info@metzgerei-kauffeld.de\n";
     $kopf .= "Reply-to: info@metzgerei-kauffeld.de\n";
@@ -178,7 +176,7 @@ foreach ($mailempf as $value) {
     $kopf .= "Content-Disposition: attachment; filename=$dateiname_mail\n\n";
     $kopf .= chunk_split(base64_encode($dateiinhalt));
     $kopf .= "\n--$id--";
-    if (!imap_mail($value, $mailbetreff, wordwrap(str_replace("%%MAIL%%", $value, $mailstring), 70), $kopf))
+    if (!imap_mail($value, $mailbetreff, wordwrap(str_replace("%%ID%%", $id, $mailstring), 70), $kopf))
     {
         echo "Kein erfolgreicher Versand an ".$value."</br>";
         continue;

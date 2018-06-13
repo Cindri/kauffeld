@@ -46,4 +46,5 @@ define("SQL_PASS", "%;XDQd!q@zpr");
 define("SQL_DB", "db1091580-kauffeld");
 
 define("ADMIN_PASS", "testzugang2016");
-define("CONTACT_MAIL", "info@metzgerei-kauffeld.de");
+define("ADMIN_MAIL", 'davidpeter1337@gmail.com');
+define("CONTACT_MAIL", "s.panten@panten.de");
