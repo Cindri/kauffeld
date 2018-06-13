@@ -51,16 +51,19 @@ else {
         $dbStadt = $data->getDbConn()->real_escape_string($this->request['stadt']);
         $dbFax = $data->getDbConn()->real_escape_string($this->request['fax']);
         $dbEmail = $data->getDbConn()->real_escape_string($this->request['email']);
+        $dbDateRegister = time();
+        $dbDateConfirmed = 0;
+        $dbDateUnregister = 0;
         $dbWillWochenkarte = newsletterChecked($this->request['wochenkarte']);
         $dbWillHauptgeschaeft = newsletterChecked($this->request['hauptgeschaeft']);
         $dbWillRheinstrasse = newsletterChecked($this->request['rheinstrasse']);
 
-        $sql = "INSERT INTO newsletter (fax, email, strasse, name, stadt, willWochenkarte, willHauptgeschaeft, willRheinstrasse) VALUES (
+        $sql = "INSERT INTO newsletter (fax, email, date_register, date_confirmed, date_unregister, willWochenkarte, willHauptgeschaeft, willRheinstrasse) VALUES (
         '".$dbFax."',
         '".$dbEmail."',
-        '".$dbStrasse."',
-        '".$dbName."',
-        '".$dbStadt."',
+        '".$dbDateRegister."',
+        '".$dbDateConfirmed."',
+        '".$dbDateUnregister."',
         '".$dbWillWochenkarte."',
         '".$dbWillHauptgeschaeft."',
         '".$dbWillRheinstrasse."'

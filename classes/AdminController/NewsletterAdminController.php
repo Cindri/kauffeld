@@ -27,6 +27,9 @@ else {
         $recipient->setFax($value->fax);
         $recipient->setEmail($value->email);
         $recipient->setConfirmed(boolval($value->confirmed));
+        $recipient->setDateConfirmed(new DateTime($value->date_confirmed));
+        $recipient->setDateRegister(new DateTime($value->date_register));
+        $recipient->setDateUnregister(new DateTime($value->date_unregister));
         $recipient->setWillHauptgeschaeft($recipient->strToBool($value->willHauptgeschaeft));
         $recipient->setWillRheinstrasse($recipient->strToBool($value->willRheinstrasse));
         $recipient->setWillWochenkarte($recipient->strToBool($value->willWochenkarte));

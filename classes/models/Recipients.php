@@ -13,13 +13,13 @@ class Recipients {
 
     protected $email = '';
 
-    protected $strasse = '';
-
-    protected $name = '';
-
-    protected $stadt = '';
-
     protected $confirmed = false;
+
+    protected $date_register = null;
+
+    protected $date_confirmed = null;
+
+    protected $date_unregister = null;
 
     protected $willWochenkarte = false;
 
@@ -37,10 +37,10 @@ class Recipients {
                 $this->id = $row->ID;
                 $this->fax = $row->fax;
                 $this->email = $row->email;
-                $this->strasse = $row->strasse;
-                $this->name = $row->name;
-                $this->stadt = $row->stadt;
                 $this->confirmed = boolval($row->confirmed);
+                $this->date_register = new DateTime($row->date_register);
+                $this->date_confirmed = new DateTime($row->date_confirmed);
+                $this->date_unregister = new DateTime($row->date_unregister);
                 $this->willWochenkarte = $this->strToBool($row->willWochenkarte);
                 $this->willRheinstrasse = $this->strToBool($row->willRheinstrasse);
                 $this->willHauptgeschaeft = $this->strToBool($row->willHauptgeschaeft);
@@ -98,54 +98,6 @@ class Recipients {
     }
 
     /**
-     * @return string
-     */
-    public function getStrasse()
-    {
-        return $this->strasse;
-    }
-
-    /**
-     * @param string $strasse
-     */
-    public function setStrasse($strasse)
-    {
-        $this->strasse = $strasse;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStadt()
-    {
-        return $this->stadt;
-    }
-
-    /**
-     * @param string $stadt
-     */
-    public function setStadt($stadt)
-    {
-        $this->stadt = $stadt;
-    }
-
-    /**
      * @return boolean
      */
     public function isConfirmed()
@@ -160,6 +112,56 @@ class Recipients {
     {
         $this->confirmed = $confirmed;
     }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateRegister()
+    {
+        return $this->date_register;
+    }
+
+    /**
+     * @param DateTime|null $date_register
+     */
+    public function setDateRegister($date_register)
+    {
+        $this->date_register = $date_register;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateConfirmed()
+    {
+        return $this->date_confirmed;
+    }
+
+    /**
+     * @param DateTime|null $date_confirmed
+     */
+    public function setDateConfirmed($date_confirmed)
+    {
+        $this->date_confirmed = $date_confirmed;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateUnregister()
+    {
+        return $this->date_unregister;
+    }
+
+    /**
+     * @param DateTime|null $date_unregister
+     */
+    public function setDateUnregister($date_unregister)
+    {
+        $this->date_unregister = $date_unregister;
+    }
+
+
 
     /**
      * @return boolean

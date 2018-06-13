@@ -88,8 +88,14 @@ Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter f
             <body>
                 <h2>Metzgerei Kauffeld - Wochenangebot</h2>Sehr geehrte Abonnentin, sehr geehrter Abonnent,<br/>anbei erhalten Sie das von Ihnen abonnierte Wochenangebot unseres Hauses als PDF-Dokument.<br/></br>Mit freundlichen Grüßen<br/>Ihr Kauffeld-Team
                 <br><br>------------------------<br><br>
-Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter folgendem Link abmelden:<br>
-<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&id=%%ID%%">Hier austragen</a>
+Falls Sie diese Angebote nicht mehr erhalten wollen, klicken Sie bitte auf diesen Link:<br>
+
+<a href="http://extern.panten.de/kauffeld/newsletter/newsletterController.php?key=UyuJCQRwT2C4XJp2hur1SWaC6DlwV3PTVMhtiqxv&type=unregister&id=%%ID%%">Hier austragen</a><br>
+Mit diesem Klick werden Sie sofort ausgetragen.<br>
+<span style="font-size: 8pt;">
+Info: Falls Sie sich bei uns mehrfach mit identischer E-Mail-Adresse angemeldet haben,
+werden Sie nur mit der zu dieser E-Mail gehörenden Datensatz-Nummer abgemeldet.
+</span>
             </body>
         </html>
         ';
@@ -130,14 +136,14 @@ Falls Sie diesen Newsletter nicht mehr erhalten wollen, können Sie sich unter f
         break;
     case "unregister";
         $unregId = $mysqli->real_escape_string($_GET['id']);
-        $sql = "UPDATE `newsletter` SET `confirmed` = '0' WHERE `ID` = '$unregId'";
+        $sql = "UPDATE `newsletter` SET `confirmed` = '0', `date_unregister` = '" . time() . "' WHERE `ID` = '$unregId'";
         $mysqli->query($sql) OR die ("Austragung hat leider nicht funktioniert, bitte kontaktieren Sie uns für einen manuellen Vorgang.");
         die("Sie wurden erfolgreich ausgetragen!");
         break;
 }
 
 // Starte Mailversand
-$sql = "SELECT `ID`, `email` FROM `newsletter` WHERE `confirmed` = '1' AND `email` != '' AND ".$addWhere;
+$sql = "SELECT `ID`, `email` FROM `newsletter` WHERE `confirmed` = '1' AND `date_unregister` = '0' AND `email` != '' AND ".$addWhere;
 
 $result = $mysqli->query($sql);
 while ($row = $result->fetch_assoc())
@@ -189,7 +195,7 @@ foreach ($mailempf as $id => $value) {
 
 // Faxversand
 
-$sql = "SELECT `fax` FROM `newsletter` WHERE `confirmed` = '1' AND `fax` != '' AND ".$addWhere;
+$sql = "SELECT `fax` FROM `newsletter` WHERE `confirmed` = '1' AND `date_unregister` = '0' AND `fax` != '' AND ".$addWhere;
 $result = $mysqli->query($sql);
 
 while ($row = $result->fetch_object()) {

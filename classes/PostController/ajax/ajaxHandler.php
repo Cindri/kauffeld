@@ -22,10 +22,9 @@ header('Content-type: text/plain');
                     }
                     break;
                 case "setConfirmed":
-                    $confirm = empty($_POST['confirmed']) ? 0 : 1;
-                    $sql = 'UPDATE newsletter SET confirmed = \''.$confirm.'\' WHERE ID = \''.$_POST['id'].'\'';
+                    $sql = 'UPDATE newsletter SET confirmed = 0, date_unregister = ' . time() . ' WHERE ID = \''.$_POST['id'].'\'';
                     if ($data->getDbConn()->query($sql)) {
-                        echo 'Status des Versand-Empfangs auf '.$confirm.' gesetzt.';
+                        echo 'Status des Versand-Empfangs auf 0 gesetzt.';
                     } else {
                         echo $data->getDbConn()->error;
                     }

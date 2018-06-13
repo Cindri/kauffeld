@@ -23,10 +23,6 @@ foreach ($_POST['edited'] as $key => $value) {
     }
 
     $updateArray = array(
-        'name' => $_POST['name'][$key],
-        // 'confirmed' => !empty($_POST['confirmed'][$key]),
-        'strasse' => $_POST['strasse'][$key],
-        'stadt' => $_POST['stadt'][$key],
         'email' => $_POST['email'][$key],
         'fax' => $_POST['fax'][$key],
         'willWochenkarte' => bool2words(intval($_POST['willWochenkarte'][$key])),
