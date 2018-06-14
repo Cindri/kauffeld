@@ -64,6 +64,9 @@ class Controller
                     include "classes/GetController/ImpressumController.php";
                     break;
 
+                case "datenschutz":
+                    include "classes/GetController/DatenschutzController.php";
+                    break;
                 case "aktuelles":
                     include "classes/GetController/AktuellesController.php";
                     break;

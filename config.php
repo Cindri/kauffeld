@@ -14,7 +14,8 @@ $pages = array(
         "wirueberuns",
         "kontakt",
         "impressum",
-        "newsletter"
+        "newsletter",
+        "datenschutz"
     ),
     "admin" => array(
         "admin"
